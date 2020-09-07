@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>jquery</title>
+    <script src="https://code.jquery.com/jquery-3.4.1.js">
+    </script>
+</head>
+<body>
+
+<script>
+    $(document).ready(() => {
+        const END_POINT = "http://localhost:5000/api/name";
+        let settings = {
+            "async": true,
+            "url": END_POINT,
+            "method": "GET"
+        };
+        $.ajax(settings).done(response => {
+            $("body").html('<h1>'+response+'</h1>');
+        });
+    });
+</script>
+</body>
+</html>

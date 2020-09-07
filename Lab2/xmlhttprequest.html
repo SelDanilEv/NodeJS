@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>XMLHttpRequest</title>
+
+    <script>
+        let httpRequest = new XMLHttpRequest();
+
+        window.onload = () => {
+            httpRequest.open('GET', 'http://localhost:5000/api/name', true);
+            httpRequest.send();
+            httpRequest.onload = () => {
+                if (httpRequest.status !== 200) {
+                    alert(httpRequest.status + ':' + httpRequest.statusText);
+                } else {
+                    document.write(`<h3>${httpRequest.response}</h3>`);
+                }
+            }
+        };
+    </script>
+</head>
+<body>
+</body>
+</html>

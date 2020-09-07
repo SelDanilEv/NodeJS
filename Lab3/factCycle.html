@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Factorial</title>
+    <script src="https://code.jquery.com/jquery-3.4.1.js">
+    </script>
+</head>
+<body>
+<div id="info" style="width: 30%;margin: 15% auto">
+
+</div>
+<script>
+    async function f(numb) {
+        let response = await fetch('http://localhost:5000/fact?k=' + numb);
+        if (response.ok) {
+            response.text().then(r => allText += r + `<br>`);
+        } else {
+            alert("Error: " + response.status);
+        }
+    }
+
+    let allText = "";
+
+    $(document).ready(() => {
+        let result = "";
+        let n = 1;
+        const d = Date.now();
+        for (let k = 1; k < 21; k++) {
+            fetch(`http://localhost:5000/fact?k=${k}`, {
+                method: 'GET',
+                headers: {'Content-Type': 'application/json', 'Accept': 'aplication/json'}
+            })
+                .then(res => {
+                    return res.json();
+                })
+                .then(pdata => {
+                    $("#info").html($("#info").html() + (n++) + '.Результат: ' + (Date.now() - d) + '-' + pdata.k + '/' + pdata.fact + '<br/>');
+                });
+        }
+    });
+</script>
+</body>
+</html>

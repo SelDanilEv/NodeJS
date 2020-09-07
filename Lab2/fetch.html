@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Fetch</title>
+    <script>
+        window.onload = f;
+
+        async function f() {
+            let response = await fetch('http://localhost:5000/api/name');
+            if (response.ok) {
+                document.write(`<h2>${await response.text()}</h2>`);
+            } else {
+                alert("Error: " + response.status);
+            }
+        }
+    </script>
+</head>
+
+<body>
+</body>
+</html>

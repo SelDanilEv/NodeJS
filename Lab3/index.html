@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lab 3</title>
+    <style>
+        .flex-container {
+            display: flex;
+            flex-direction: row;
+            width: 50%;
+            margin: 100px auto;
+        }
+
+        .container {
+            width: 30%;
+        }
+
+        .container2 {
+            margin: 10% auto;
+        }
+
+        .container1 {
+            margin: 25% auto 0;
+        }
+
+        .info {
+            width: 50%;
+            margin: 10px auto 10px;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.4.1.js">
+    </script>
+</head>
+<body>
+<div class="flex-container">
+    <div>
+        <div class="container container1">
+            INPUT:
+            <div class="input">
+                Norm
+            </div>
+        </div>
+        <div class="container container2">
+            STATE:
+            <div class="state">
+                norm
+            </div>
+        </div>
+    </div>
+    <div class="info">
+        someinfo
+
+    </div>
+</div>
+
+
+<script>
+    let states = ['norm', "stop", "test", "idle"];
+    let input;
+
+    function makePrompt() {
+        input = prompt("Enter state");
+
+        $(".input").text(input);
+
+        if (states.includes(input)) {
+            $(".state").text(input);
+        }
+
+        if (input !== 'exit' && input) {
+            $(".state").text("stop");
+            setTimeout(makePrompt, 0);
+        }
+    }
+
+    makePrompt();
+</script>
+</body>
+</html>
