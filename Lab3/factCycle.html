@@ -26,7 +26,7 @@
         let result = "";
         let n = 1;
         const d = Date.now();
-        for (let k = 1; k < 21; k++) {
+        for (let k = 1; k < 1000; k++) {
             fetch(`http://localhost:5000/fact?k=${k}`, {
                 method: 'GET',
                 headers: {'Content-Type': 'application/json', 'Accept': 'aplication/json'}

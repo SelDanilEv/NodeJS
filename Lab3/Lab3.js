@@ -1,9 +1,7 @@
 'use strict'
 
 let fs = require('fs');
-let expt = require('express');
-let app = expt();
-
+let app = require('express')();
 
 function init(response, request) {
     let source = 'index.html';
@@ -15,11 +13,6 @@ function init(response, request) {
 function getSimpleFact(n) {
     if (n < 0) return 0;
     return (n > 1) ? n * getSimpleFact(n - 1) : 1;
-}
-
-function getTickFact(n) {
-    if (n < 0) return 0;
-    return (n > 1) ? n * process.nextTick(() => getTickFact(n - 1)) : 1;
 }
 
 
@@ -45,7 +38,7 @@ async function factCycleTick(req, res) {
     let result = "";
     let n = 1;
     const d = Date.now();
-    for (let k = 1; k < 605; k++) {
+    for (let k = 1; k < 1000; k++) {
         process.nextTick(async () => {
             result += (n++) + '.Результат: ' + (Date.now() - d) + '-' + k + '/' + getSimpleFact(k) + '<br/>';
             await sleep(1);
@@ -62,7 +55,7 @@ async function factCycleImmediate(req, res) {
     let result = "";
     let n = 1;
     const d = Date.now();
-    for (let k = 1; k < 605; k++) {
+    for (let k = 1; k < 1000; k++) {
         setImmediate(async () => {
             result += (n++) + '.Результат: ' + (Date.now() - d) + '-' + k + '/' + getSimpleFact(k) + '<br/>';
             await sleep(1);
@@ -79,7 +72,7 @@ async function factCycleS(req, res) {
     let result = "";
     let n = 1;
     const d = Date.now();
-    for (let k = 1; k < 100; k++) {
+    for (let k = 1; k < 1000; k++) {
             result += (n++) + '.Результат: ' + (Date.now() - d) + '-' + k + '/' + getSimpleFact(k) + '<br/>';
             await sleep(1);
     }

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lab 4-5</title>
+    <style>
+        body {
+            width: 60%;
+            min-width: 400px;
+            margin: 80px auto;
+            display: flex;
+            flex-direction: row;
+            max-height: 410px;
+            background: lightgray;
+            color: #23236d;
+        }
+
+        #message {
+            height: 35px;
+            font-size: 30px;
+            color:red;
+            width: min-content;
+            margin: auto;
+        }
+
+        #main {
+            display: flex;
+            flex-direction: column;
+        }
+
+        #main label #birth {
+            width: 96%;
+        }
+
+        #main label {
+            margin-top: 10px;
+            font-size: 24px;
+        }
+
+        #main label input {
+            width: 95%;
+            font-size: 19px;
+            color: #98ff9a;
+            background: #1e0f36;
+        }
+
+        .nav {
+            display: flex;
+            flex-direction: column;
+            margin-top: 25px;
+        }
+
+        .nav button {
+            width: 90%;
+            font-size: 20px;
+            margin: 5px auto;
+        }
+
+        button {
+            font-size: 20px;
+            color: #23236d;
+            background: lightslategray;
+        }
+
+        .control {
+            width: 50%;
+            margin-right: 5px;
+        }
+
+        #select-notes{
+            width: 60%;
+            border: blue 2px solid;
+            font-size: 20px;
+            overflow: scroll;
+            background:  #7dbf89;
+        }
+
+        hr{
+            width: 98%;
+            height: 1px;
+            background: blue;
+        }
+
+        #select-notes div {
+            width: 89%;
+            display: flex;
+            flex-direction: column;
+            margin: 0 auto;
+            padding: 4% 0;
+            background: #7dbf89;
+        }
+    </style>
+</head>
+<body>
+<div class="control">
+    <div id="message"></div>
+    <div id="main">
+        <label>
+            ID:
+            <input name="newNoteData" id="id" type="number" placeholder="auto">
+        </label>
+        <label>
+            Note:
+            <input name="newNoteData" id="name" type="text" placeholder="note">
+        </label>
+        <label>
+            Date:
+            <input name="newNoteData" id="birth" type="date">
+        </label>
+    </div>
+    <div class="nav">
+        <button onclick="Get()">Get</button>
+        <button onclick="Commit()">Commit</button>
+        <button onclick="Post()">POST/PUT</button>
+    </div>
+</div>
+<div id="select-notes"></div>
+
+
+<script>
+    const DBPATH = 'http://localhost:5000/api/db';
+    const COMMITPATH = 'http://localhost:5000/commit';
+
+    function Get() {
+        fetch(DBPATH, {method: 'GET'})
+            .then(response => response.json())
+            .then(notes => {
+                let container = document.getElementById('select-notes');
+                container.innerHTML = '';
+                notes.forEach(note => {
+                    let noteContainer = document.createElement('div');
+
+                    let deleteButton = document.createElement('button');
+                    deleteButton.setAttribute('onclick', 'Delete(event)');
+                    deleteButton.setAttribute('noteId', note.id);
+                    deleteButton.innerText = 'Delete note';
+
+                    noteContainer.innerHTML = `${note.id}. ${note.name}<br>${note.birth}`;
+                    noteContainer.appendChild(deleteButton);
+                    container.appendChild(noteContainer);
+                    container.appendChild(document.createElement('hr'));
+
+                });
+            }).catch((err) => {
+            console.log("Some error")
+        });
+    }
+
+    async function Post() {
+        let notesData = Array.from(document.getElementsByName('newNoteData')).map(a => {
+            return {key: a.getAttribute('id'), value: a.value};
+        });
+
+        EditDatabase(notesData, await FindNoteById(notesData));
+        Get();
+    }
+
+    async function FindNoteById(notesData) {
+        let noteId = notesData[0].value;
+        return await fetch(DBPATH, {method: 'GET'})
+            .then(response => response.json())
+            .then(jsonNotes => {
+                let isId = jsonNotes.find(x => x.id == noteId);
+                return isId ? noteId : false;
+            });
+    }
+
+    function EditDatabase(notesData, notesId) {
+        fetch(DBPATH, {
+            method: notesId ? 'PUT' : 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                id: +notesId,
+                name: notesData[1].value,
+                birth: notesData[2].value,
+            })
+        })
+    }
+
+    function Delete(event) {
+        fetch(DBPATH + '?id=' + event.target.getAttribute('noteId'), {method: 'DELETE'}).then(() => Get());
+    }
+
+    function Commit() {
+        fetch(COMMITPATH, {method: 'Get'})
+            .then(() => {
+                let message = document.getElementById('message');
+                message.innerHTML = `<span>COMMITTED</span>`;
+                setTimeout(() => message.innerHTML = '', 3000);
+            });
+    }
+</script>
+</body>
+</html>
