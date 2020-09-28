@@ -15,7 +15,6 @@ function getSimpleFact(n) {
     return (n > 1) ? n * getSimpleFact(n - 1) : 1;
 }
 
-
 function testFact(req, res) {
     let k = req.query.k;
     let json = {k: k, fact: getSimpleFact(k)};
@@ -80,7 +79,7 @@ async function factCycleS(req, res) {
 
     res.writeHead(200, {'Content-Type': 'text/html; charset=utf-8'});
     setTimeout(() =>
-        res.end(result), 100);
+    res.end(result), 100);
 }
 
 

@@ -11,16 +11,6 @@
 
 </div>
 <script>
-    async function f(numb) {
-        let response = await fetch('http://localhost:5000/fact?k=' + numb);
-        if (response.ok) {
-            response.text().then(r => allText += r + `<br>`);
-        } else {
-            alert("Error: " + response.status);
-        }
-    }
-
-    let allText = "";
 
     $(document).ready(() => {
         let result = "";
@@ -39,6 +29,7 @@
                 });
         }
     });
+
 </script>
 </body>
 </html>

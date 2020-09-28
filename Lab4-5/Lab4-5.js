@@ -130,18 +130,19 @@ const rl = readline.createInterface({
     output: process.stdout
 });
 
-let shotDown;
-let autoCommit;
-let isStatCollection = false;
-let lastStat;
-let autoFinishCollectStat;
-let startCollectTime;
-
 let clearStat = {
     seconds: 0,
     requests: 0,
     commits: 0
 };
+
+let shotDown;
+let autoCommit;
+let isStatCollection = false;
+let lastStat = clearStat;
+let autoFinishCollectStat;
+let startCollectTime;
+
 
 function printStat() {
     console.log(returnJsonStat());
@@ -157,15 +158,16 @@ function returnJsonStat() {
 
 rl.on('line', (input) => {
     let args = input.split(' ');
-    console.log(args);
     switch (args[0]) {
         case 'sd':
             clearTimeout(shotDown);
             if (args[1] != undefined && (typeof +args[1] == 'number')) {
                 shotDown = setTimeout(() => {
                     console.log('Server turning off ...\n');
-                    app.terminate();
+                    //app.close();
+                    process.exit(0);
                 }, args[1] * 1000);
+                shotDown.unref();
                 console.log('Server will be turn off after ' + args[1] + ' sec\n');
             } else {
                 console.log('Auto shot down turn off\n');
@@ -177,6 +179,7 @@ rl.on('line', (input) => {
                 autoCommit = setInterval(() => {
                     NodeFetch('http://localhost:5000/commit', {method: 'Get'})
                 }, args[1] * 1000);
+                autoCommit.unref();
                 console.log('Auto commit every ' + args[1] + ' sec\n');
             } else {
                 console.log('Auto commit turn off\n');
@@ -194,6 +197,7 @@ rl.on('line', (input) => {
                     autoFinishCollectStat = setTimeout(() => {
                         printStat();
                     }, args[1] * 1000);
+                    autoFinishCollectStat.unref();
                     console.log('Statistics will be in ' + args[1] + "sec.\n");
                 } else {
                     console.log('No param\n');
