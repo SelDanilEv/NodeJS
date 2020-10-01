@@ -1,0 +1,11 @@
+{
+  "name": "m0603_defender",
+  "version": "1.0.0",
+  "description": "modul for 6 lab",
+  "main": "m0603.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}

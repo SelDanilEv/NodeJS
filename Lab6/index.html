@@ -2,41 +2,53 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Lab 6</title>
+    <title>Send mail</title>
 </head>
 <body>
-    <section id="insert-names">
-        <div>
-            <label>
-                <input type="email" placeholder="From e-mail" name="New" id="mailfrom" type="text">
-                <input type="email" placeholder="Password" name="Pass" id="Passmail" type="text"><br>
-                <input type="email" placeholder="To e-mail" name="To" id="mailfor" type="text"><br>
-                <input placeholder="Message" name="Message" id="MS" type="text" size="60">
-            </label>
-        </div>
-        <button onclick="Send()">Send</button>
-        <section id="select-names"></section>
-    </section>
+<form>
+    <div>
+        <label>From</label><br>
+        <label>Email:</label>
+        <input type="email" id="sender" placeholder="Enter email">
+        <label>Password:</label>
+        <input type="password" id="password" placeholder="Enter password">
+    </div>
+    <div>
+        <label>To:</label>
+        <input type="email" id="receiver" placeholder="Enter email" required>
+    </div>
+    <div>
+        <label>Message:</label>
+        <input type="text" id="message">
+    </div>
+    <input type="submit" onclick="Send()">Send</input>
+</form>
+<script>
+    GetLastSend();
 
-    <script>
-        const ENDPOINT = 'http://localhost:5000/sendMS';
+    function GetLastSend() {
+        fetch('http://localhost:5000/api/getLastSend', {method: 'GET'})
+            .then(response => response.json())
+            .then(data => {
+                if (data)
+                    alert(JSON.stringify(data));
+            })
+            .catch(err => {
+            })
+    }
 
-        function Send() {
-          let namesData = Array.from(document.getElementsByName('newnamesData')).map(a => {
-              return {field: a.getAttribute('id'), value: a.value};
-          });
-            fetch(ENDPOINT, {
-                method: 'PUT',
-                headers: {
-                'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    mfrom: namesData.find(a => a.field === 'mailfrom').value,
-                    name: namesData.find(a => a.field === 'mailfor').value,
-                    birth: namesData.find(a => a.field === 'MS').value,
-                })
-            });
-        }
-    </script>
+    function Send() {
+        fetch('http://localhost:5000/send', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                from: sender.value,
+                password: password.value,
+                to: receiver.value,
+                message: message.value
+            })
+        })
+    }
+</script>
 </body>
 </html>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+    <exams>
+        <subject>
+            <name>NodeJS</name>
+            <mark>9</mark>
+        </subject>
+        <subject>
+            <name>DB</name>
+            <mark>8</mark>
+        </subject>
+    </exams>
+</root>
