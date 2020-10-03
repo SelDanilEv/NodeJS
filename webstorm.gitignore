@@ -10,7 +10,7 @@
 .idea/**/shelf
 
 mailpassword.txt
-node_modules/
+node_modules
 
 # Generated files
 .idea/**/contentModel.xml
