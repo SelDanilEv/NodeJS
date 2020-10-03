@@ -11,6 +11,7 @@
 
 mailpassword.txt
 node_modules
+toignore.txt
 
 # Generated files
 .idea/**/contentModel.xml
