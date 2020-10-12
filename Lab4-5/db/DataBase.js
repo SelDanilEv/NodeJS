@@ -44,17 +44,20 @@ class DataBase extends EventEmitter {
         return object;
     }
 
-    async update(updatedNote) { //check deleted
+    async update(updatedNote) {
         let oldObject = this.elements.find(m => m.id === updatedNote.id);
+
         if (!oldObject) {
             throw Error('401 Invalid Request');
         }
+
         let newNote = this.elements.splice(this.elements.indexOf(oldObject), 1)[0];
         Object.keys(updatedNote).forEach(field => {
             if (newNote[field]) {
                 newNote[field] = updatedNote[field];
             }
         });
+
         await this.commit(newNote, 'update');
         console.log("Update command");
         return newNote;
