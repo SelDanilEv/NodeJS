@@ -1,0 +1,7 @@
+{
+  "_comment": "My comment",
+  "x": 1,
+  "y": 2,
+  "m":["a","b","c"],
+  "o":{"surname": "Selitsky", "name": "Danil"}
+}

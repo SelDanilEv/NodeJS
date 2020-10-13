@@ -13,6 +13,10 @@ mailpassword.txt
 node_modules
 toignore.txt
 
+#temp
+Lab10
+Answers.docx
+#----
 # Generated files
 .idea/**/contentModel.xml
 
