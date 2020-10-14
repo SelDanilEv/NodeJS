@@ -1,0 +1,63 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Lab 10</title>
+</head>
+<body>
+<script>
+    let k = 0;
+
+    function startWS() {
+        let timer = ' ';
+        let socket = new WebSocket('ws:/localhost:4000/wsserver');
+        socket.onopen = () => {
+            console.log('Open socket');
+            timer = setInterval(() => {
+                socket.send(++k)
+            }, 3000);
+            setTimeout(() => {
+                clearInterval(timer);
+                socket.close()
+            }, 25000);
+        };
+
+        socket.onclose = (e) => {
+            console.log('Close socket ', e)
+        };
+
+        socket.onmessage = (e) => {
+            console.log('Message socket ', e.data)
+        };
+
+        socket.onerror = function (e) {
+            alert("Error: " + error.message)
+        };
+    };
+
+
+    function broadcastWS() {
+        const broadcast = new WebSocket('ws:/localhost:5000/broadcast')
+        let timer = ' ';
+
+        let client = new Date().getSeconds()%60;
+
+        broadcast.onmessage = (e) => {
+            console.log("Message from server: ", e.data);
+        };
+        broadcast.onopen = () => {
+            console.log('Open broadcast');
+            timer = setInterval(() => {
+                broadcast.send("Hello server by "+ client)
+            }, 3000);
+            setTimeout(() => {
+                clearInterval(timer);
+                broadcast.close()
+            }, 25000);
+        };
+    };
+</script>
+<h1>10-01</h1>
+<button type="button" name="button" onclick="startWS()">WS Start</button><br>
+<button type="button" name="button" onclick="broadcastWS()">Broadcast Start</button>
+</body>
+</html>
