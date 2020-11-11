@@ -2,7 +2,6 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const xmlBodyParser = require('express-xml-bodyparser');
 
-
 const app = express();
 app.use(bodyParser.json());
 app.use(xmlBodyParser({}));

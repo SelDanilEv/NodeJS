@@ -64,9 +64,8 @@ webSocketServerBroadcast.on('connection', (ws) => {
 });
 
 webSocketServerBroadcast.on('open', () => {
-    let timer = ' ';
     let k = 0;
-    timer = setInterval(() => webSocketServerBroadcast.send(`Client: -${k++}`));
+    let timer = setInterval(() => webSocketServerBroadcast.send(`Client: -${k++}`));
     webSocketServerBroadcast.on('message', (message) => {
         console.log(`Received message => ${message}`);
     });
