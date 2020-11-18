@@ -1,32 +1,29 @@
 const rpcWSS = require('rpc-websockets').Server
 
-const eventSocket = new rpcWSS({
+const wss = new rpcWSS({
     port: 4000,
     host: 'localhost',
     path: '/'
 });
 
-eventSocket.event('A');
-eventSocket.event('B');
-eventSocket.event('C');
+wss.event('A');
+wss.event('B');
+wss.event('C');
 
-eventSocket.on('connection', () => {
-    eventSocket.on('A', () => console.log('A event was fired'));
-    eventSocket.on('B', () => console.log('B event was fired'));
-    eventSocket.on('C', () => console.log('C event was fired'));
+wss.on('connection', () => {
 });
 
-eventSocket.register('A', (params) => {
-    eventSocket.emit("A");
+wss.register('A', (params) => {
+    console.log('A event now')
     return 'A';
 }).public();
 
-eventSocket.register('B', (params) => {
-    eventSocket.emit("B");
+wss.register('B', (params) => {
+    console.log('B event now')
     return 'B';
 }).public();
 
-eventSocket.register('C', (params) => {
-    eventSocket.emit("C");
+wss.register('C', (params) => {
+    console.log('C event now')
     return "C";
 }).public();

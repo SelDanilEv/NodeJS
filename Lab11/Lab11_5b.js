@@ -3,7 +3,7 @@ const rpcWSC = require('rpc-websockets').Client
 
 let ws = new rpcWSC('ws://localhost:4000');
 
-let h = (x = ws) => async.parallel({
+let makeCall = (x = ws) => async.parallel({
     square: (cb) => {
         ws.call('square', [5,100]).catch((e) => cb(e, null)).then((r) => cb(null, r));
         console.log('square');
@@ -30,4 +30,4 @@ let h = (x = ws) => async.parallel({
         console.log('result =', r)
     ws.close();
 })
-ws.on('open', h)
+ws.on('open', makeCall)

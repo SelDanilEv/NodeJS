@@ -1,11 +1,11 @@
 
 const rpc = require('rpc-websockets').Client;
-const eventSocket = new rpc('ws://localhost:4000');
-eventSocket.on('open', () => {
-    eventSocket.subscribe('A');
-    eventSocket.subscribe('B');
-    eventSocket.subscribe('C');
-    eventSocket.on('A', () => console.log('A event was fired'));
-    eventSocket.on('B', () => console.log('B event was fired'));
-    eventSocket.on('C', () => console.log('C event was fired'));
+const ws = new rpc('ws://localhost:4000');
+ws.on('open', () => {
+    ws.subscribe('A');
+    ws.subscribe('B');
+    ws.subscribe('C');
+    ws.on('A', () => console.log('A event now'));
+    ws.on('B', () => console.log('B event now'));
+    ws.on('C', () => console.log('C event now'));
 });
