@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <req id="28">
-  <x value="10"/>
-  <x value="20"/>
-  <x value="30"/>
-  <m value="Hello "/>
-  <m value="world"/>
+    <x value="10"/>
+    <x value="20"/>
+    <x value="30"/>
+    <m value="Hello "/>
+    <m value="world"/>
 </req>

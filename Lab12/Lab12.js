@@ -15,7 +15,7 @@ let throw_error = (res, mess) => {
 }
 
 let DO_DELETE = (req, res) => {
-    let path = url.parse(req.url).pathname;
+    let path = req.url;
     let student_id = +path.slice(1);
     if (path.includes('.json')) {
         let backs = [];
@@ -23,7 +23,7 @@ let DO_DELETE = (req, res) => {
             for (let i = 0; i < items.length; i++) {
                 backs.push({i: items[i]});
             }
-            path = path.slice(1).replace('/backup/', '');
+            path = path.slice(1).replace('backup/', '');
             let year = path.slice(0, 4);
             let month = path.slice(4, 6);
             let day = path.slice(6, 8);
@@ -80,7 +80,7 @@ let DO_DELETE = (req, res) => {
 }
 
 let DO_POST = (req, res) => {
-    let path = url.parse(req.url).pathname;
+    let path = req.url;
     switch (path) {
         case '/':
             let data_json = '';
@@ -138,7 +138,7 @@ let DO_POST = (req, res) => {
 }
 
 let DO_PUT = (req, res) => {
-    let path = url.parse(req.url).pathname;
+    let path = req.url;
     switch (path) {
         case '/':
             let data_json = '';
@@ -175,7 +175,7 @@ let DO_PUT = (req, res) => {
     }
 }
 let DO_GET = (req, res) => {
-    let path = url.parse(req.url).pathname;
+    let path = req.url;
     switch (path) {
         case '/':
             fs.access(FILEPATH, fs.constants.R_OK, err => {
