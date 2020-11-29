@@ -5,7 +5,26 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="236e67d1-7b81-406a-ab5f-69768f166276" name="Default Changelist" comment="" />
+    <list default="true" id="236e67d1-7b81-406a-ab5f-69768f166276" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Lab14/10.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Lab14/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Lab14/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Lab14/package-lock.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Lab14/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Lab14/queries.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Lab14/Лабораторная_работа_14.docx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Lab15/DB/fucunty.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Lab15/DB/pulpit.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Lab15/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Lab15/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Lab15/package-lock.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Lab15/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Lab15/queries.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Lab15/Лабораторная_работа_15.docx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -47,17 +66,17 @@
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Danil\university\ПСКП\Лабораторные_работы\Labs\files" />
+      <recent name="D:\Danil\university\ПСКП\Лабораторные_работы\Labs" />
+      <recent name="D:\ToParse\Danil\university\ПСКП\Лабораторные_работы\Labs\Lab1" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\Danil\university\ПСКП\Лабораторные_работы\Labs" />
       <recent name="D:\Danil\university\ПСКП\Лабораторные_работы\Labs\Lab13" />
       <recent name="D:\Danil\university\ПСКП\Лабораторные_работы\Labs\Lab12" />
       <recent name="D:\Danil\university\ПСКП\Лабораторные_работы\Labs\Lab9" />
       <recent name="D:\Danil\university\ПСКП\Лабораторные_работы\Labs\files" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\Danil\university\ПСКП\Лабораторные_работы\Labs\files" />
-      <recent name="D:\Danil\university\ПСКП\Лабораторные_работы\Labs" />
-      <recent name="D:\ToParse\Danil\university\ПСКП\Лабораторные_работы\Labs\Lab1" />
     </key>
   </component>
   <component name="RunManager" selected="Node.js.client_4.js">
@@ -141,7 +160,8 @@
       <workItem from="1606161786068" duration="2114000" />
       <workItem from="1606213596875" duration="635000" />
       <workItem from="1606328479801" duration="6850000" />
-      <workItem from="1606677167794" duration="653000" />
+      <workItem from="1606677167794" duration="862000" />
+      <workItem from="1606678138820" duration="698000" />
     </task>
     <servers />
   </component>
@@ -185,11 +205,11 @@
       <screen x="0" y="0" width="1280" height="680" />
     </state>
     <state x="117" y="133" key="#Web_Browsers/0.0.1280.680@0.0.1280.680" timestamp="1599246613444" />
-    <state x="191" y="0" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1606368927234">
+    <state x="191" y="0" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1606678463250">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
     <state x="-1186" y="-434" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1280.680/-2560.-442.2560.1400@-2560.-442.2560.1400" timestamp="1599414814656" />
-    <state x="191" y="0" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1280.680/-2560.-442.2560.1400@0.0.1280.680" timestamp="1606368927234" />
+    <state x="191" y="0" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1280.680/-2560.-442.2560.1400@0.0.1280.680" timestamp="1606678463250" />
     <state x="191" y="0" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1280.680@0.0.1280.680" timestamp="1604035543968" />
     <state x="95" y="145" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1606367755920">
       <screen x="0" y="0" width="1280" height="680" />

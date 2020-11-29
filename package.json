@@ -16,6 +16,7 @@
     "express": "^4.17.1",
     "express-fileupload": "^1.2.0",
     "m0603_defender": "^1.0.0",
+    "mssql": "^6.2.3",
     "node-fetch": "^2.6.1",
     "nodemailer-smtp-transport": "^2.7.4",
     "np": "^6.5.0",

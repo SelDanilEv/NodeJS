@@ -1,161 +1,185 @@
 const Db = require('./queries');
+const fs = require('fs');
+var url = require("url");
+const http = require('http');
 const DB = new Db();
 
 const PORT = 3000;
 const HOST = 'localhost';
 
-
-
-//-----GET------
-app.get('/', (req, res) =>
+let HTTP404 = (req, res) =>
 {
-    res.sendFile(__dirname + '/index.html');
-});
+    console.log(`${req.method}: ${req.url}, HTTP status 404`);
+    res.writeHead(404, {'Content-Type' : 'application/json; charset=utf-8'});
+    res.end(`"error" : "${req.method}: ${req.url}, HTTP status 404"`);
+}
 
-app.get('/api/FACULTY', (req, res) =>
+let HTTP405 = (req, res) =>
 {
-    console.log('Get faculties');
-    getHand('FACULTY', req, res);
-});
+    console.log(`${req.method}: ${req.url}, HTTP status 405`);
+    res.writeHead(404, {'Content-Type' : 'application/json; charset=utf-8'});
+    res.end(`Error" : "${req.method}: ${req.url}, HTTP status 405"`);
+}
 
-app.get('/api/PULPIT', (req, res) =>
+let http_handler = (req, res)=>
 {
-    console.log('Get pulpits');
-    getHand('PULPIT', req, res);
-});
+  console.log("da");
+  switch (req.method)
+  {
+    case 'GET': GET_handler(req, res);  break;
+    case 'POST': POST_handler(req, res);  break;
+    case 'PUT': PUT_handler(req, res);  break;
+    case 'DELETE': DELETE_handler(req, res);  break;
+    default: HTTP405(req, res);  break;
+  }
+};
 
-app.get('/api/SUBJECT', (req, res) =>
+let GET_handler = (req, res)=>
 {
-    console.log('Get subjects');
-    getHand('SUBJECT', req, res);
-});
+  let Url_forGet = req.url;
+  let Path_forGet = url.parse(req.url, true).pathname;
+  console.log(Path_forGet + ' | ' + Url_forGet);
+  console.log('URL: /'+ GetUrlPart(Path_forGet, 1));
+  switch ('/'+GetUrlPart(Path_forGet, 1))
+  {
+    case '/ ':
+      res.writeHead(200, {'Content-Type': 'text/html; charset=utf-8'});
+      res.end(fs.readFileSync(__dirname + '/index.html'));
+      console.log("App sendFile");
+    break;
+    case '/api':
+      let tab = GetUrlPart(Path_forGet, 2);
+      console.log(`Get ${tab}`);
+      DB.Get(tab).then(records =>
+      {res.end(JSON.stringify(records.recordset));}).catch(error =>
+          {
+              res.statusCode = 400;
+              res.end(JSON.stringify({error: String(error)}));
+          });
+    break;
+    default: HTTP404(req, res);  break;
+  }
+};
 
-app.get('/api/AUDITORIUM_TYPE', (req, res) =>
+let POST_handler = (req, res)=>
 {
-    console.log('Get Auditorium Type');
-    getHand('AUDITORIUM_TYPE', req, res);
-});
-
-app.get('/api/AUDITORIUM', (req, res) =>
-{
-    console.log('Get Auditorium');
-    getHand('AUDITORIUM', req, res);
-});
-
-function getHand(tab, req, res)
-{
-    DB.Get(tab).then(records =>
-    {res.json(records.recordset);}).catch(error =>
+  let Url_forGet = req.url;
+  let Path_forGet = url.parse(req.url, true).pathname;
+  console.log(Path_forGet + ' | ' + Url_forGet);
+  console.log('URL: /'+ GetUrlPart(Path_forGet, 1));
+  switch ('/'+GetUrlPart(Path_forGet, 1))
+  {
+    case '/api':
+      let body = ' ';
+      req.on('data', chunk => {
+            body = chunk.toString();
+            body = JSON.parse(body);
+      });
+      req.on('end', async () => {
+        let tab = GetUrlPart(Path_forGet, 2);
+        console.log(`Post ${tab}`);
+        DB.Insert(tab, body).then(record =>
+        {res.end(JSON.stringify(record.recordset[0]));}).catch(error =>
         {
             res.statusCode = 400;
-            res.json({error: String(error)});
+            res.end(JSON.stringify({error: String(error)}));
         });
+      });
+    break;
+    default: HTTP404(req, res);  break;
+  }
+};
+
+let PUT_handler = (req, res)=>
+{
+  let Url_forGet = req.url;
+  let Path_forGet = url.parse(req.url, true).pathname;
+  console.log(Path_forGet + ' | ' + Url_forGet);
+  console.log('URL: /'+ GetUrlPart(Path_forGet, 1));
+  switch ('/'+GetUrlPart(Path_forGet, 1))
+  {
+    case '/api':
+      let body = ' ';
+      req.on('data', chunk => {
+            body = chunk.toString();
+            body = JSON.parse(body);
+      });
+      req.on('end', async () => {
+        let tab = GetUrlPart(Path_forGet, 2);
+        console.log(`Put ${tab}`);
+        console.log(JSON.stringify(body));
+        DB.Update(tab, body).then(record =>
+        {res.end(JSON.stringify(record.recordset[0]));}).catch(error =>
+        {
+            res.statusCode = 400;
+            res.end(JSON.stringify({error: String(error)}));
+        });
+      });
+    break;
+    default: HTTP404(req, res);  break;
+  }
+};
+
+let DELETE_handler = (req, res)=>
+{
+  let Url_forGet = req.url;
+  let Path_forGet = url.parse(req.url, true).pathname;
+  console.log(Path_forGet + ' | ' + Url_forGet);
+  console.log('URL: /'+ GetUrlPart(Path_forGet, 1));
+  switch ('/'+GetUrlPart(Path_forGet, 1))
+  {
+    case '/api':
+      let body = ' ';
+      req.on('data', chunk => {
+            body = chunk.toString();
+            body = JSON.parse(body);
+      });
+      req.on('end', async () => {
+        let tab = GetUrlPart(Path_forGet, 2);
+        console.log(`Delete ${tab}`);
+        DB.Delete(tab, GetUrlPart(Path_forGet, 3))
+          .then(record => res.end(JSON.stringify(record)))
+          .catch(error =>
+          {
+          res.statusCode = 400;
+          res.end(JSON.stringify({error: String(error)}));
+          });
+      });
+    break;
+    default: HTTP404(req, res);  break;
+  }
+};
+
+function GetUrlParam(url_parm, baseURL, name_parm)
+{
+  let curr_url = new URL(url_parm, baseURL);
+  let serch_parm = curr_url.searchParams;
+  if (serch_parm.has(name_parm))
+    return curr_url.searchParams.get(name_parm);
+  else return null;
 }
 
-//-----POST------
-app.post('/api/FACULTY', (req, res) =>
+function GetUrlPart(url_path, indx)
 {
-    console.log('Get faculties');
-    postHand('FACULTY', req, res);
-});
-
-app.post('/api/PULPIT', (req, res) =>
-{
-    console.log('Get pulpits');
-    postHand('PULPIT', req, res);
-});
-
-app.post('/api/SUBJECT', (req, res) =>
-{
-    console.log('Get subjects');
-    postHand('SUBJECT', req, res);
-});
-
-app.post('/api/AUDITORIUM_TYPE', (req, res) =>
-{
-    console.log('Get Auditorium Type');
-    postHand('AUDITORIUM_TYPE', req, res);
-});
-
-app.post('/api/AUDITORIUM', (req, res) =>
-{
-    console.log('Get Auditorium');
-    postHand('AUDITORIUM', req, res);
-});
-
-function postHand()
-{
-    DB.Insert(object, req.body).then(record =>
-    {res.json(record.recordset[0]);}).catch(error =>
+  let i = 0;
+  let curr_url = ' ';
+  i--;
+  decodeURI(url_path).split('/').forEach(e =>
+  {
+    i++;
+    console.log(i+' ' + e);
+    if(i == indx)
     {
-        res.statusCode = 400;
-        res.json({error: String(error)});
-    });
+      curr_url = e;
+      return;
+    }
+  });
+  return curr_url?curr_url:' ';
 }
 
-//-----PUT------
-app.put('/api/FACULTY', (req, res) =>
+const server = http.createServer().listen(PORT, (v) =>
 {
-    console.log('Get faculties');
-    putHand('FACULTY', req, res);
-});
-
-app.put('/api/PULPIT', (req, res) =>
-{
-    console.log('Get pulpits');
-    putHand('PULPIT', req, res);
-});
-
-app.put('/api/SUBJECT', (req, res) =>
-{
-    console.log('Get subjects');
-    putHand('SUBJECT', req, res);
-});
-
-app.put('/api/AUDITORIUM_TYPE', (req, res) =>
-{
-    console.log('Get Auditorium Type');
-    putHand('AUDITORIUM_TYPE', req, res);
-});
-
-app.put('/api/AUDITORIUM', (req, res) =>
-{
-    console.log('Get Auditorium');
-    putHand('AUDITORIUM', req, res);
-});
-
-function putHand()
-{
-    DB.Update(object, req.body).then(record =>
-    {res.json(record.recordset[0]);}).catch(error =>
-    {
-        res.statusCode = 400;
-        res.json({error: String(error)});
-    });
-}
-
-//-----DELETE------
-app.delete('/api/faculties/:xy', (req, res) =>
-{
-    let xy = req.params.xy;
-});
-
-app.delete('/api/pulpits/:xy', (req, res) =>
-{
-    let xy = req.params.xy;
-});
-
-app.delete('/api/subjects/:xy', (req, res) =>
-{
-    let xy = req.params.xy;
-});
-
-app.delete('/api/auditortype/:xy', (req, res) =>
-{
-    let xy = req.params.xy;
-});
-
-app.delete('/api/auditor/:xy', (req, res) =>
-{
-    let xy = req.params.xy;
-});
+  console.log(`Listening on http://localhost:${PORT}`);
+})
+.on('error', (e) => {console.log(`${URL} | error: ${e.code}`)})
+.on('request', http_handler);
