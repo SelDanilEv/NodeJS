@@ -5,12 +5,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="236e67d1-7b81-406a-ab5f-69768f166276" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Lab12/12-01.js" beforeDir="false" afterPath="$PROJECT_DIR$/Lab12/Lab12.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/files/xml.xml" beforeDir="false" afterPath="$PROJECT_DIR$/files/xml.xml" afterDir="false" />
-    </list>
+    <list default="true" id="236e67d1-7b81-406a-ab5f-69768f166276" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -43,7 +38,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="javascript.nodejs.core.library.configured.version" value="12.18.3" />
     <property name="javascript.nodejs.core.library.typings.version" value="12.12.55" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/Lab13" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path" value="node" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="restartRequiresConfirmation" value="false" />
@@ -52,17 +47,17 @@
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Danil\university\ПСКП\Лабораторные_работы\Labs" />
+      <recent name="D:\Danil\university\ПСКП\Лабораторные_работы\Labs\Lab13" />
+      <recent name="D:\Danil\university\ПСКП\Лабораторные_работы\Labs\Lab12" />
+      <recent name="D:\Danil\university\ПСКП\Лабораторные_работы\Labs\Lab9" />
+      <recent name="D:\Danil\university\ПСКП\Лабораторные_работы\Labs\files" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\Danil\university\ПСКП\Лабораторные_работы\Labs\files" />
       <recent name="D:\Danil\university\ПСКП\Лабораторные_работы\Labs" />
       <recent name="D:\ToParse\Danil\university\ПСКП\Лабораторные_работы\Labs\Lab1" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\Danil\university\ПСКП\Лабораторные_работы\Labs\Lab13" />
-      <recent name="D:\Danil\university\ПСКП\Лабораторные_работы\Labs" />
-      <recent name="D:\Danil\university\ПСКП\Лабораторные_работы\Labs\Lab12" />
-      <recent name="D:\Danil\university\ПСКП\Лабораторные_работы\Labs\Lab9" />
-      <recent name="D:\Danil\university\ПСКП\Лабораторные_работы\Labs\files" />
     </key>
   </component>
   <component name="RunManager" selected="Node.js.client_4.js">
@@ -146,11 +141,28 @@
       <workItem from="1606161786068" duration="2114000" />
       <workItem from="1606213596875" duration="635000" />
       <workItem from="1606328479801" duration="6850000" />
+      <workItem from="1606677167794" duration="653000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+    <option name="exactExcludedFiles">
+      <list>
+        <option value="$PROJECT_DIR$/Lab14/node_modules/msnodesqlv8/lib/MsNodeSqWrapperModule.js" />
+        <option value="$PROJECT_DIR$/Lab14/node_modules/msnodesqlv8/lib/MsNodeSqWrapperModule.js.map" />
+        <option value="$PROJECT_DIR$/Lab14/node_modules/msnodesqlv8/samples/typescript/table-gen.js" />
+        <option value="$PROJECT_DIR$/Lab14/node_modules/msnodesqlv8/samples/typescript/mssql-demo.js" />
+        <option value="$PROJECT_DIR$/Lab14/node_modules/msnodesqlv8/samples/typescript/simple-demo.js" />
+        <option value="$PROJECT_DIR$/Lab14/node_modules/msnodesqlv8/samples/typescript/table-gen.js.map" />
+        <option value="$PROJECT_DIR$/Lab14/node_modules/msnodesqlv8/samples/typescript/mssql-demo.js.map" />
+        <option value="$PROJECT_DIR$/Lab14/node_modules/msnodesqlv8/samples/typescript/simple-demo.js.map" />
+        <option value="$PROJECT_DIR$/Lab14/node_modules/msnodesqlv8/samples/typescript/DriverModuleTest.js" />
+        <option value="$PROJECT_DIR$/Lab14/node_modules/msnodesqlv8/samples/typescript/DriverModuleTest.js.map" />
+        <option value="$PROJECT_DIR$/Lab14/node_modules/msnodesqlv8/unit.tests/cmd-test.js" />
+        <option value="$PROJECT_DIR$/Lab14/node_modules/msnodesqlv8/unit.tests/cmd-test.js.map" />
+      </list>
+    </option>
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
