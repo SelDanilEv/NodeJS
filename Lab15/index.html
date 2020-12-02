@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Main</title>
+    <style>
+        section button {
+            margin-left: 10px
+        }
+
+        input {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body onload="UpdateP();UpdateF()">
+<div style="display: flex;flex-direction: row">
+    <section style="margin-top: 10px;padding-left: 20px" id="select-pulpits"></section>
+    <br/>
+    <section id="insert-pulpit">
+        <div style="display: flex;flex-direction: column;margin-top: 10px;padding-left: 20px">
+            <label>
+                <input name="newPulpitData" id="id" type="text" placeholder="Id">
+            </label>
+            <label>
+                <input name="newPulpitData" id="nam" type="text" placeholder="Pulpit">
+            </label>
+            <label>
+                <input name="newPulpitData" id="name" type="text" placeholder="Pulpit Name">
+            </label>
+            <label>
+                <input name="newPulpitData" id="faculty" type="text" placeholder="Faculty">
+            </label>
+            <button style="margin-right: 10px" onclick="submit_p()">Submit</button>
+            <br>
+            <button onclick="UpdateP()">Update</button>
+        </div>
+    </section>
+</div>
+<hr style="margin: 10px auto">
+<div style="display: flex;flex-direction: row">
+    <section style="margin-top: 10px;padding-left: 20px" id="select-faculties"></section>
+    <br/>
+    <section id="insert-faculties">
+        <div style="display: flex;flex-direction: column;margin-top: 10px;padding-left: 20px">
+            <label>
+                <input name="newFacultyData" id="id_f" type="text" placeholder="Id">
+            </label>
+            <label>
+                <input name="newFacultyData" id="faculty_f" type="text" placeholder="Faculty">
+            </label>
+            <label>
+                <input name="newFacultyData" id="faculty_name_f" type="text" placeholder="Faculty name">
+            </label>
+            <button style="margin-right: 10px" onclick="submit_f()">Submit</button>
+            <br>
+            <button onclick="UpdateF()">Update</button>
+        </div>
+    </section>
+</div>
+
+
+<script>
+    const ENDPOINT = 'http://localhost:3000/api/';
+
+
+    function UpdateP() {
+        fetch(ENDPOINT + 'pulpit').then(res => res.json())
+            .then(res => {
+                checkErrors(res);
+                let container = document.getElementById('select-pulpits');
+                container.innerHTML = '';
+                res.forEach(pulpit => {
+                    let pulpitContainer = document.createElement('div');
+                    let deleteButton = document.createElement('button');
+                    deleteButton.setAttribute('onclick', 'deletePulpit(event)');
+                    deleteButton.setAttribute('pulpitId', pulpit._id);
+                    deleteButton.innerText = 'Delete';
+                    pulpitContainer.innerHTML = `<span>ID: ${pulpit._id} | ${pulpit.pulpit} -> ${pulpit.pulpit_name} : ${pulpit.faculty}</span>`;
+                    pulpitContainer.appendChild(deleteButton);
+                    container.append(pulpitContainer, document.createElement('br'));
+                });
+            });
+    }
+
+    function UpdateF() {
+        fetch(ENDPOINT + 'faculty').then(res => res.json())
+            .then(res => {
+                checkErrors(res);
+                let container = document.getElementById('select-faculties');
+                container.innerHTML = '';
+                res.forEach(faculty => {
+                    let facultyContainer = document.createElement('div');
+                    let deleteButton = document.createElement('button');
+                    deleteButton.setAttribute('onclick', 'deleteFaculty(event)');
+                    deleteButton.setAttribute('facultyId', faculty._id);
+                    deleteButton.innerText = 'Delete';
+                    facultyContainer.innerHTML = `<span>ID: ${faculty._id} | ${faculty.faculty_f} -> ${faculty.faculty_name_f}}</span>`;
+                    facultyContainer.appendChild(deleteButton);
+                    container.append(facultyContainer, document.createElement('br'));
+                });
+            });
+    }
+
+    function submit_p() {
+        let pulpitData = Array.from(document.getElementsByName('newPulpitData')).map(a => {
+            return {field: a.getAttribute('id'), value: a.value};
+        });
+        let pulpitId = pulpitData.find(a => a.field === 'id').value;
+        upsertPulpit(pulpitData, pulpitId);
+    }
+
+    function submit_f() {
+        let fData = Array.from(document.getElementsByName('newFacultyData')).map(a => {
+            return {field: a.getAttribute('id'), value: a.value};
+        });
+        let fId = fData.find(a => a.field === 'id_f').value;
+        upsertFaculty(fData, fId);
+    }
+
+    function upsertPulpit(pulpitData, pulpitId) {
+        fetch(ENDPOINT + 'pulpit',
+            {
+                method: pulpitId ? 'PUT' : 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(
+                    {
+                        _id: pulpitId ? pulpitId : undefined,
+                        pulpit: pulpitData.find(a => a.field === 'nam').value,
+                        pulpit_name: pulpitData.find(a => a.field === 'name').value,
+                        faculty: pulpitData.find(a => a.field === 'faculty').value
+                    })
+            })
+            .then(res => res.json())
+            .then(res => {
+                checkErrors(res);
+                UpdateRows();
+            });
+    }
+
+    function upsertFaculty(fData, fId) {
+        fetch(ENDPOINT + 'faculty',
+            {
+                method: fId ? 'PUT' : 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(
+                    {
+                        _id: fId ? fId : undefined,
+                        faculty_f: fData.find(a => a.field === 'faculty_f').value,
+                        faculty_name_f: fData.find(a => a.field === 'faculty_name_f').value,
+                    })
+            })
+            .then(res => res.json())
+            .then(res => {
+                checkErrors(res);
+                UpdateF();
+            });
+    }
+
+    function deletePulpit(event) {
+        if (confirm('Delete it?')) {
+            fetch(ENDPOINT + 'pulpit/' + event.target.getAttribute('pulpitId'), {method: 'DELETE'})
+                .then(res => res.json())
+                .then(res => {
+                    checkErrors(res);
+                    UpdateP();
+                });
+        }
+    }
+
+
+    function deleteFaculty(event) {
+        if (confirm('Delete it?')) {
+            fetch(ENDPOINT + 'faculty/' + event.target.getAttribute('facultyId'), {method: 'DELETE'})
+                .then(res => res.json())
+                .then(res => {
+                    checkErrors(res);
+                    UpdateF();
+                });
+        }
+    }
+
+    function checkErrors(res) {
+        if (res.error) {
+            document.getElementById('errors').innerText = res.error;
+            document.getElementById('close-error').style.display = 'block';
+        }
+    }
+
+    function closeError() {
+        document.getElementById('errors').innerText = '';
+        document.getElementById('close-error').style.display = 'none';
+    }
+</script>
+</body>
+</html>
