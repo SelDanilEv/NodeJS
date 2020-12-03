@@ -4,10 +4,11 @@
     <meta charset="utf-8">
     <title></title>
     <style>
-        label{
+        label {
             padding: 10px;
         }
-        button{
+
+        button {
             margin-left: 5px;
             padding: 3px;
         }
@@ -31,8 +32,6 @@
     <hr/>
     <div style="margin-top: 50px;">
         <section id="insert" style="display: flex;flex-direction: column;margin: 10px auto"></section>
-        <section id="errors" style="color: red; font-size: 20px;max-width: 100%"></section>
-        <button id="close-error" style="display: none;" onclick="closeError()">Close</button>
     </div>
 </div>
 <script>
@@ -43,7 +42,6 @@
     function get_pulpit() {
         CurrentTable = 'PULPIT';
         fetch(api_path + 'PULPIT', {method: 'GET'}).then(res => res.json()).then(res => {
-            checkErrors(res);
             let container = document.getElementById('out_info');
             container.innerHTML = '';
             res.forEach(pulpit => {
@@ -80,7 +78,6 @@
     function get_faculty() {
         CurrentTable = 'FACULTY';
         fetch(api_path + 'FACULTY').then(res => res.json()).then(res => {
-            checkErrors(res);
             let container = document.getElementById('out_info');
             container.innerHTML = '';
             res.forEach(pulpit => {
@@ -112,7 +109,6 @@
     function get_subject() {
         CurrentTable = 'SUBJECT';
         fetch(api_path + 'SUBJECT').then(res => res.json()).then(res => {
-            checkErrors(res);
             let container = document.getElementById('out_info');
             container.innerHTML = '';
             res.forEach(pulpit => {
@@ -147,7 +143,6 @@
     function get_auditorium() {
         CurrentTable = 'AUDITORIUM';
         fetch(api_path + 'AUDITORIUM').then(res => res.json()).then(res => {
-            checkErrors(res);
             let container = document.getElementById('out_info');
             container.innerHTML = '';
             res.forEach(pulpit => {
@@ -185,7 +180,6 @@
     function get_auditorium_type() {
         CurrentTable = 'AUDITORIUM_TYPE';
         fetch(api_path + 'AUDITORIUM_TYPE').then(res => res.json()).then(res => {
-            checkErrors(res);
             let container = document.getElementById('out_info');
             container.innerHTML = '';
             res.forEach(pulpit => {
@@ -275,32 +269,13 @@
                 method: method_for_request,
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify(row)
-            }).then(res => res.json()).then(res => {
-            checkErrors(res);
-        });
+            });
     }
 
-    function deleteRecord(event)
-    {
+    function deleteRecord(event) {
         if (confirm('Are you sure you want to remove this record?')) {
             fetch(api_path + CurrentTable + '/' + event.target.getAttribute('id'), {method: 'DELETE'})
-                .then(res => res.json()).then(res =>
-            {
-                checkErrors(res);
-            });
         }
-    }
-
-    function checkErrors(res) {
-        if (res.error) {
-            document.getElementById('errors').innerText = res.error;
-            document.getElementById('close-error').style.display = 'block';
-        }
-    }
-
-    function closeError() {
-        document.getElementById('errors').innerText = '';
-        document.getElementById('close-error').style.display = 'none';
     }
 </script>
 </body>

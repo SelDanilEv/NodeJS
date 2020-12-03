@@ -67,7 +67,6 @@
     function UpdateP() {
         fetch(ENDPOINT + 'pulpit').then(res => res.json())
             .then(res => {
-                checkErrors(res);
                 let container = document.getElementById('select-pulpits');
                 container.innerHTML = '';
                 res.forEach(pulpit => {
@@ -86,7 +85,6 @@
     function UpdateF() {
         fetch(ENDPOINT + 'faculty').then(res => res.json())
             .then(res => {
-                checkErrors(res);
                 let container = document.getElementById('select-faculties');
                 container.innerHTML = '';
                 res.forEach(faculty => {
@@ -133,8 +131,7 @@
             })
             .then(res => res.json())
             .then(res => {
-                checkErrors(res);
-                UpdateRows();
+                UpdateP();
             });
     }
 
@@ -152,7 +149,6 @@
             })
             .then(res => res.json())
             .then(res => {
-                checkErrors(res);
                 UpdateF();
             });
     }
@@ -162,7 +158,6 @@
             fetch(ENDPOINT + 'pulpit/' + event.target.getAttribute('pulpitId'), {method: 'DELETE'})
                 .then(res => res.json())
                 .then(res => {
-                    checkErrors(res);
                     UpdateP();
                 });
         }
@@ -172,24 +167,10 @@
     function deleteFaculty(event) {
         if (confirm('Delete it?')) {
             fetch(ENDPOINT + 'faculty/' + event.target.getAttribute('facultyId'), {method: 'DELETE'})
-                .then(res => res.json())
                 .then(res => {
-                    checkErrors(res);
                     UpdateF();
                 });
         }
-    }
-
-    function checkErrors(res) {
-        if (res.error) {
-            document.getElementById('errors').innerText = res.error;
-            document.getElementById('close-error').style.display = 'block';
-        }
-    }
-
-    function closeError() {
-        document.getElementById('errors').innerText = '';
-        document.getElementById('close-error').style.display = 'none';
     }
 </script>
 </body>
