@@ -5,10 +5,8 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="236e67d1-7b81-406a-ab5f-69768f166276" name="Default Changelist" comment="">
+    <list default="true" id="236e67d1-7b81-406a-ab5f-69768f166276" name="Default Changelist" comment="add 16 lab">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -66,14 +64,14 @@
       <recent name="D:\Danil\university\ПСКП\Лабораторные_работы\Labs\files" />
     </key>
   </component>
-  <component name="RunManager" selected="Node.js.16-01.js">
-    <configuration name="16-01.js" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/Lab16/16-01.js" working-dir="$PROJECT_DIR$/Lab16">
-      <method v="2" />
-    </configuration>
+  <component name="RunManager" selected="Node.js.Lab16.js">
     <configuration name="Lab14.js" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/Lab14/Lab14.js" working-dir="$PROJECT_DIR$/Lab14">
       <method v="2" />
     </configuration>
     <configuration name="Lab15.js" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/Lab15/Lab15.js" working-dir="$PROJECT_DIR$/Lab15">
+      <method v="2" />
+    </configuration>
+    <configuration name="Lab16.js" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/Lab16/Lab16.js" working-dir="$PROJECT_DIR$/Lab16">
       <method v="2" />
     </configuration>
     <configuration name="client_4.js" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/Lab13/client_4.js" working-dir="$PROJECT_DIR$/Lab13">
@@ -87,11 +85,11 @@
       <item itemvalue="Node.js.client_4.js" />
       <item itemvalue="Node.js.Lab14.js" />
       <item itemvalue="Node.js.Lab15.js" />
-      <item itemvalue="Node.js.16-01.js" />
+      <item itemvalue="Node.js.Lab16.js" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Node.js.16-01.js" />
+        <item itemvalue="Node.js.Lab16.js" />
         <item itemvalue="Node.js.Lab14.js" />
         <item itemvalue="Node.js.Lab15.js" />
         <item itemvalue="Node.js.client_4.js" />
@@ -153,8 +151,16 @@
       <workItem from="1606974659198" duration="2134000" />
       <workItem from="1607254508103" duration="10343000" />
       <workItem from="1608181551935" duration="436000" />
-      <workItem from="1608182011609" duration="2195000" />
+      <workItem from="1608182011609" duration="3980000" />
     </task>
+    <task id="LOCAL-00001" summary="add 16 lab">
+      <created>1608185166953</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1608185166953</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -171,6 +177,10 @@
       </map>
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="add 16 lab" />
+    <option name="LAST_COMMIT_MESSAGE" value="add 16 lab" />
   </component>
   <component name="WindowStateProjectService">
     <state x="191" y="0" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1606680613507">
@@ -202,30 +212,30 @@
     </state>
     <state x="421" y="95" key="FileChooserDialogImpl/0.0.1280.680/-2560.-442.2560.1400@0.0.1280.680" timestamp="1601483664769" />
     <state x="421" y="95" key="FileChooserDialogImpl/0.0.1280.680@0.0.1280.680" timestamp="1607254653825" />
-    <state width="1237" height="136" key="GridCell.Tab.0.bottom" timestamp="1608184640673">
+    <state width="1237" height="136" key="GridCell.Tab.0.bottom" timestamp="1608189381524">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
     <state width="1234" height="95" key="GridCell.Tab.0.bottom/0.0.1280.680/-2560.-442.2560.1400@-2560.-442.2560.1400" timestamp="1607286839366" />
     <state width="1237" height="137" key="GridCell.Tab.0.bottom/0.0.1280.680/-2560.-442.2560.1400@0.0.1280.680" timestamp="1606976811919" />
-    <state width="1237" height="136" key="GridCell.Tab.0.bottom/0.0.1280.680@0.0.1280.680" timestamp="1608184640673" />
-    <state width="1237" height="136" key="GridCell.Tab.0.center" timestamp="1608184640672">
+    <state width="1237" height="136" key="GridCell.Tab.0.bottom/0.0.1280.680@0.0.1280.680" timestamp="1608189381524" />
+    <state width="1237" height="136" key="GridCell.Tab.0.center" timestamp="1608189381524">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
     <state width="1234" height="95" key="GridCell.Tab.0.center/0.0.1280.680/-2560.-442.2560.1400@-2560.-442.2560.1400" timestamp="1607286839365" />
     <state width="1237" height="137" key="GridCell.Tab.0.center/0.0.1280.680/-2560.-442.2560.1400@0.0.1280.680" timestamp="1606976811919" />
-    <state width="1237" height="136" key="GridCell.Tab.0.center/0.0.1280.680@0.0.1280.680" timestamp="1608184640672" />
-    <state width="1237" height="136" key="GridCell.Tab.0.left" timestamp="1608184640672">
+    <state width="1237" height="136" key="GridCell.Tab.0.center/0.0.1280.680@0.0.1280.680" timestamp="1608189381524" />
+    <state width="1237" height="136" key="GridCell.Tab.0.left" timestamp="1608189381524">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
     <state width="1234" height="95" key="GridCell.Tab.0.left/0.0.1280.680/-2560.-442.2560.1400@-2560.-442.2560.1400" timestamp="1607286839364" />
     <state width="1237" height="137" key="GridCell.Tab.0.left/0.0.1280.680/-2560.-442.2560.1400@0.0.1280.680" timestamp="1606976811919" />
-    <state width="1237" height="136" key="GridCell.Tab.0.left/0.0.1280.680@0.0.1280.680" timestamp="1608184640672" />
-    <state width="1237" height="136" key="GridCell.Tab.0.right" timestamp="1608184640673">
+    <state width="1237" height="136" key="GridCell.Tab.0.left/0.0.1280.680@0.0.1280.680" timestamp="1608189381524" />
+    <state width="1237" height="136" key="GridCell.Tab.0.right" timestamp="1608189381524">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
     <state width="1234" height="95" key="GridCell.Tab.0.right/0.0.1280.680/-2560.-442.2560.1400@-2560.-442.2560.1400" timestamp="1607286839365" />
     <state width="1237" height="137" key="GridCell.Tab.0.right/0.0.1280.680/-2560.-442.2560.1400@0.0.1280.680" timestamp="1606976811919" />
-    <state width="1237" height="136" key="GridCell.Tab.0.right/0.0.1280.680@0.0.1280.680" timestamp="1608184640673" />
+    <state width="1237" height="136" key="GridCell.Tab.0.right/0.0.1280.680@0.0.1280.680" timestamp="1608189381524" />
     <state width="1234" height="95" key="GridCell.Tab.1.bottom" timestamp="1607286839372">
       <screen x="-2560" y="-442" width="2560" height="1400" />
     </state>
