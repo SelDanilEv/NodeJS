@@ -1,18 +1,13 @@
-const express = require('express');
+const http = require('http');
 const bodyParser = require('body-parser');
 const DataBase = require('./db/DataBase');
 const fs = require('fs');
 const NodeFetch = require("node-fetch");
+let url = require('url');
 
 const initialData = require('./db/data/notes.json')
 
-const HOST = 'localhost';
-const PORT = 5000;
-
-const app = express();
 const db = new DataBase(initialData);
-
-app.use(bodyParser.json());
 
 function loadHTML(request, response, source) {
     new Promise((resolve, reject) => {
@@ -34,32 +29,37 @@ db.on('get',
         if (isStatCollection) {
             lastStat.requests++;
         }
-        await response.json(await db.getRows());
+        response.end(JSON.stringify(await db.getRows()));
     });
 
 db.on('post',
     async (request, response) => {
-        if (isStatCollection) {
-            lastStat.requests++;
-        }
-        let newNote = {
-            name: request.body.name,
-            birth: request.body.birth
-        };
-        await response.json(await db.addRow(newNote));
+        let newNote;
+        request.on('data', chunk => {
+            newNote = chunk.toString();
+            newNote = JSON.parse(newNote);
+        });
+        request.on('end', async () => {
+            if (isStatCollection) {
+                lastStat.requests++;
+            }
+            response.end(JSON.stringify(await db.addRow(newNote)));
+        });
     });
 
 db.on('put',
     async (request, response) => {
-        if (isStatCollection) {
-            lastStat.requests++;
-        }
-        let note = {
-            id: request.body.id,
-            name: request.body.name,
-            birth: request.body.birth
-        };
-        await response.json(await db.updateRow(note));
+        let note;
+        request.on('data', chunk => {
+            note = chunk.toString();
+            note = JSON.parse(note);
+        });
+        request.on('end', async () => {
+            if (isStatCollection) {
+                lastStat.requests++;
+            }
+            response.end(JSON.stringify(await db.updateRow(note)));
+        });
     });
 
 db.on('delete',
@@ -67,7 +67,10 @@ db.on('delete',
         if (isStatCollection) {
             lastStat.requests++;
         }
-        await response.json(await db.removeRow(request.query.id));
+        response.end(
+            JSON.stringify(
+                await db.removeRow(
+                    url.parse(request.url, true).query.id)));
     });
 
 db.on('commit',
@@ -75,52 +78,82 @@ db.on('commit',
         if (isStatCollection) {
             lastStat.commits++;
         }
-        await response.json(await db.stateCommit());
+        response.end(JSON.stringify(await db.stateCommit()));
     });
 
 
-app.get('/',
-    (request, response) => {
-        loadHTML(request, response, 'index.html');
-    });
+let DO_GET = (req, res) => {
+    switch (req.url.split('?')[0]) {
+        case '/commit':
+            db.emit('commit', req, res);
+            break;
+        case '/api/db':
+            db.emit('get', req, res);
+            break;
+        case '/api/ss':
+            res.writeHead(200, {'Content-Type': 'application/json'});
+            res.end(returnJsonStat());
+            break;
+        default:
+            loadHTML(req, res, 'index.html');
+            break;
+    }
+};
+
+let DO_POST = (req, res) => {
+    switch (req.url.split('?')[0]) {
+        case '/api/db':
+            db.emit('post', req, res);
+            break;
+    }
+};
+
+let DO_PUT = (req, res) => {
+    switch (req.url.split('?')[0]) {
+        case '/api/db':
+            db.emit('put', req, res);
+            break;
+    }
+};
+
+let DO_DELETE = (req, res) => {
+    switch (req.url.split('?')[0]) {
+        case '/api/db':
+            db.emit('delete', req, res);
+            break;
+    }
+};
+
+let HTTP405 = (req, res) => {
+    res.writeHead(404, {'Content-Type': 'application/json; charset=utf-8'});
+    res.end(`Error" : "${req.method}: ${req.url}, HTTP status 405"`);
+}
+
+let http_handler = (req, res) => {
+    switch (req.method) {
+        case 'GET':
+            DO_GET(req, res);
+            break;
+        case 'POST':
+            DO_POST(req, res);
+            break;
+        case 'PUT':
+            DO_PUT(req, res);
+            break;
+        case 'DELETE':
+            DO_DELETE(req, res);
+            break;
+        default:
+            HTTP405(req, res);
+            break;
+    }
+};
 
 
-app.get('/commit',
-    (request, response) => {
-        db.emit('commit', request, response);
-    });
-
-
-app.get('/api/db',
-    (request, response) => {
-        db.emit('get', request, response);
-    });
-
-app.post('/api/db',
-    (request, response) => {
-        db.emit('post', request, response);
-    });
-
-app.put('/api/db',
-    (request, response) => {
-        db.emit('put', request, response);
-    });
-
-app.delete('/api/db',
-    (request, response) => {
-        db.emit('delete', request, response);
-    });
-
-
-app.get('/api/ss', (request, response) => {
-    response.writeHead(200, {'Content-Type': 'application/json'});
-    response.end(returnJsonStat());
-});
-
-
-app.listen(PORT, HOST, () => {
-    console.log('Listening on ' + `http://${HOST}:${PORT}`);
-});
+const server = http.createServer().listen(5000, () => {
+    console.log('Server running at http://localhost:5000/');
+})
+    .on('request', http_handler);
 
 
 const readline = require('readline');
@@ -150,7 +183,7 @@ function printStat() {
 }
 
 function returnJsonStat() {
-    if(isStatCollection) {
+    if (isStatCollection) {
         lastStat.seconds = Math.round((Date.now() - startCollectTime) / 1000);
     }
     return JSON.stringify(lastStat);

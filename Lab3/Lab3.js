@@ -1,7 +1,8 @@
 'use strict'
 
 let fs = require('fs');
-let app = require('express')();
+let http = require('http');
+let url = require('url');
 
 function init(response, request) {
     let source = 'index.html';
@@ -16,7 +17,7 @@ function getSimpleFact(n) {
 }
 
 function testFact(req, res) {
-    let k = req.query.k;
+    let k = url.parse(req.url, true).query.k;
     let json = {k: k, fact: getSimpleFact(k)};
     res.writeHead(200, {'Content-Type': 'application/json; charset=utf-8'});
     res.end(JSON.stringify(json));
@@ -72,26 +73,47 @@ async function factCycleS(req, res) {
     let n = 1;
     const d = Date.now();
     for (let k = 1; k < 1000; k++) {
-            result += (n++) + '.Результат: ' + (Date.now() - d) + '-' + k + '/' + getSimpleFact(k) + '<br/>';
-            await sleep(1);
+        result += (n++) + '.Результат: ' + (Date.now() - d) + '-' + k + '/' + getSimpleFact(k) + '<br/>';
+        await sleep(1);
     }
-
 
     res.writeHead(200, {'Content-Type': 'text/html; charset=utf-8'});
     setTimeout(() =>
-    res.end(result), 100);
+        res.end(result), 100);
 }
 
+let DO_GET = (req, res) => {
+    switch (req.url.split('?')[0]) {
+        case '/fact':
+            testFact(req, res)
+            break;
+        case '/factCycle':
+            factCycle(req, res)
+            break;
+        case '/factCycleS':
+            factCycleS(req, res)
+            break;
+        case '/factCycleTick':
+            factCycleTick(req, res)
+            break;
+        case '/factCycleImmediate':
+            factCycleImmediate(req, res)
+            break;
+        default:
+            init(req, res)
+            break;
+    }
+};
 
-app.get("/", (response, request) => init(response, request));
-app.post("/", (response, request) => init(response, request));
+let http_handler = (req, res) => {
+    switch (req.method) {
+        case 'GET':
+            DO_GET(req, res);
+            break;
+    }
+};
 
-app.get("/fact", ((req, res) => testFact(req, res)));
-app.get("/factCycle", ((req, res) => factCycle(req, res)));
-app.get("/factCycleS", ((req, res) => factCycleS(req, res)));
-app.get("/factCycleTick", ((req, res) => factCycleTick(req, res)));
-app.get("/factCycleImmediate", ((req, res) => factCycleImmediate(req, res)));
-
-app.listen(5000);
-
-console.log('Server running at http://localhost:5000/');
+const server = http.createServer().listen(5000, () => {
+    console.log('Server running at http://localhost:5000/');
+})
+    .on('request', http_handler);

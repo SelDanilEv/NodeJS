@@ -2,13 +2,12 @@ const EventEmitter = require('events');
 const fs = require('fs');
 
 class DataBase extends EventEmitter {
-//----------------constructor----------------------
     constructor(elements) {
         super();
         this.elements = elements;
         console.log("Data base was created");
     }
-//----------------shell----------------------
+
     async stateCommit() {
         await fs.writeFile('db/data/notes.json', JSON.stringify(this.elements), () =>
         {
@@ -31,7 +30,7 @@ class DataBase extends EventEmitter {
     async removeRow(id) {
         return await this.delete(id).catch(err => console.log(err));
     }
-//----------------commands----------------------
+
     async select() {
         console.log("Select command");
         return this.elements;
@@ -72,7 +71,7 @@ class DataBase extends EventEmitter {
         console.log("Delete command");
         return oldNote;
     }
-//----------------commit----------------------
+
     async commit(object, action) {
         switch (action) {
             case 'insert':
