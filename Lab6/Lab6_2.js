@@ -1,13 +1,5 @@
-const express = require('express');
+const http = require('http');
 const fs = require('fs');
-const bodyParser = require('body-parser');
-
-const HOST = 'localhost';
-const PORT = 5000;
-
-const app = express();
-
-app.use(bodyParser.json());
 
 function loadHTML(request, response, source) {
     new Promise((resolve, reject) => {
@@ -26,22 +18,57 @@ function loadHTML(request, response, source) {
 
 let lastSendObj = '';
 
-app.get('/', (request, response) => {
-    loadHTML(request, response, 'index.html');
-});
+let DO_GET = (req, res) => {
+    switch (req.url.split('?')[0]) {
+        case '/api/getLastSend':
+            res.writeHead(200, {'Content-Type': 'text/html; charset=utf-8'});
+            res.end(lastSendObj.toString());
+            break;
+        default:
+            loadHTML(req, res, 'index.html');
+            break;
+    }
+};
 
-app.post('/send', (request, response) => {
-    response.writeHead(200, {'Content-Type': 'json/application; charset=utf-8'});
-    lastSendObj = JSON.stringify(request.body);
-    console.log(lastSendObj);
-    response.end(lastSendObj);
-});
+let DO_POST = (req, res) => {
+    switch (req.url.split('?')[0]) {
+        case '/send':
+            let reqbody;
+            res.writeHead(200, {'Content-Type': 'json/application; charset=utf-8'});
+            req.on('data', chunk => {
+                reqbody = chunk.toString();
+                reqbody = JSON.parse(reqbody);
+            });
+            req.on('end', async () => {
+                lastSendObj = JSON.stringify(reqbody);
+                console.log(lastSendObj);
+                res.end(lastSendObj);
+            });
+            break;
+    }
+};
 
-app.get('/api/getLastSend', (request, response) => {
-    response.writeHead(200, {'Content-Type': 'text/html; charset=utf-8'});
-    response.end(lastSendObj.toString());
-});
+let HTTP405 = (req, res) => {
+    res.writeHead(404, {'Content-Type': 'application/json; charset=utf-8'});
+    res.end(`Error" : "${req.method}: ${req.url}, HTTP status 405"`);
+}
 
-app.listen(PORT, HOST, () => {
-    console.log('Listening on ' + `http://${HOST}:${PORT}`);
-});
+let http_handler = (req, res) => {
+    switch (req.method) {
+        case 'GET':
+            DO_GET(req, res);
+            break;
+        case 'POST':
+            DO_POST(req, res);
+            break;
+        default:
+            HTTP405(req, res);
+            break;
+    }
+};
+
+
+const server = http.createServer().listen(5000, () => {
+    console.log('Server running at http://localhost:5000/');
+})
+    .on('request', http_handler);

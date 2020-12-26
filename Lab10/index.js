@@ -1,11 +1,10 @@
-const express = require('express');
+const http = require('http');
 const fs = require('fs');
 const WebSocket = require('ws');
 
 const PORT = 3000;
 const HOST = 'localhost';
 
-const app = express();
 const webSocketServer = new WebSocket.Server({port: 4000, host: HOST, path: '/wsserver'});
 const webSocketServerBroadcast = new WebSocket.Server({port: 5000, host: HOST, path: '/broadcast'});
 
@@ -24,17 +23,9 @@ function loadHTML(request, response, source) {
         console.log(err));
 }
 
-const server = app.listen(PORT, HOST, () => {
-    const URL = `http://${HOST}:${PORT}`;
-    console.log('Listening on ' + URL);
-}).on('error', (e) => {
-    console.log(`${URL} | error: ${e.code}`)
-});
-
-
-app.get('/start', (req, res) => {
+function start(req,res){
     loadHTML(req, res, "index.html");
-});
+}
 
 let k = 0;
 let mess = 0;
@@ -78,3 +69,10 @@ webSocketServerBroadcast.on('open', () => {
     .on('error', (e) => {
         console.log('WS server error ', e);
     });
+
+let server = http.createServer();
+server.listen(5000, () => {
+    console.log('Server running at http://localhost:5000')
+})
+    .on('request', start);
+
