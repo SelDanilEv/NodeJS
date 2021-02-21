@@ -22,6 +22,7 @@
     "node-fetch": "^2.6.1",
     "nodemailer-smtp-transport": "^2.7.4",
     "np": "^6.5.0",
+    "redis": "^3.0.2",
     "rpc-websockets": "^7.4.6",
     "ws": "^7.3.1"
   },
