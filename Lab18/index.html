@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <style>
+        label {
+            padding: 10px;
+        }
+
+        button {
+            margin-left: 5px;
+            padding: 3px;
+        }
+    </style>
+</head>
+<body>
+<div style="display: flex;flex-direction: row">
+    <div style="display: flex;flex-direction: column;margin-top: 50px;max-width: 20%;min-width: 20%">
+        <button onclick="get_pulpit()">Get pulpits</button>
+        <br>
+        <button onclick="get_faculty()">Get faculties</button>
+        <br>
+        <button onclick="get_subject()">Get subjects</button>
+        <br>
+        <button onclick="get_auditorium()">Get Auditorium</button>
+        <br>
+        <button onclick="get_auditorium_type()">Get AUDITORIUM_TYPE</button>
+    </div>
+    <hr/>
+    <section id="out_info" style="min-width: 30%;width: fit-content;margin: 50px 3%"></section>
+    <hr/>
+    <div style="margin-top: 50px;">
+        <section id="insert" style="display: flex;flex-direction: column;margin: 10px auto"></section>
+    </div>
+</div>
+<script>
+    let CurrentTable = '';
+    let method_for_request = ''
+    const api_path = 'http://localhost:3000/api/';
+
+    function get_pulpit() {
+        CurrentTable = 'pulpits';
+        fetch(api_path + 'pulpits', {method: 'GET'}).then(res => res.json()).then(res => {
+            let container = document.getElementById('out_info');
+            container.innerHTML = '';
+            res.forEach(pulpit => {
+                let pulp = document.createElement('div');
+                let deleteButton = document.createElement('button');
+                deleteButton.setAttribute('onclick', 'deleteRecord(event)');
+                deleteButton.setAttribute('ID', pulpit.PULPIT);
+                deleteButton.innerText = 'Delete';
+                pulp.innerHTML = `<span>${pulpit.PULPIT} - ${pulpit.PULPIT_NAME} [${pulpit.FACULTY}] </span>`;
+                pulp.appendChild(deleteButton);
+                container.append(pulp, document.createElement('br'));
+            });
+
+            container = document.getElementById("insert");
+            container.innerHTML = '';
+            container.innerHTML =
+                `<div>
+                    <label>
+                        <input name="newData" id="id" type="text" placeholder="Id">
+                    </label>
+                    <label>
+                        <input name="newData" id="name" type="text" placeholder="Name">
+                    </label>
+                    <label>
+                        <input name="newData" id="faculty" type="text" placeholder="Faculty Id">
+                    </label>
+                 </div>
+            <button onclick="submit()">Add</button>
+            <button onclick="submitup()">update</button>
+        `;
+        });
+    }
+
+    function get_faculty() {
+        CurrentTable = 'faculties';
+        fetch(api_path + 'faculties').then(res => res.json()).then(res => {
+            let container = document.getElementById('out_info');
+            container.innerHTML = '';
+            res.forEach(pulpit => {
+                let pulp = document.createElement('div');
+                let deleteButton = document.createElement('button');
+                deleteButton.setAttribute('onclick', 'deleteRecord(event)');
+                deleteButton.setAttribute('ID', pulpit.FACULTY);
+                deleteButton.innerText = 'Delete';
+                pulp.innerHTML = `<span>${pulpit.FACULTY} - ${pulpit.FACULTY_NAME}</span>`;
+                pulp.appendChild(deleteButton);
+                container.append(pulp, document.createElement('br'));
+            });
+            container = document.getElementById("insert");
+            container.innerHTML = '';
+            container.innerHTML = `<div>
+            <label>
+                <input name="newData" id="id" type="text" placeholder="Id">
+            </label>
+            <label>
+                <input name="newData" id="name" type="text" placeholder="Name">
+            </label>
+        </div>
+        <button onclick="submit()">Add</button>
+        <button onclick="submitup()">update</button>
+        `;
+        });
+    }
+
+    function get_subject() {
+        CurrentTable = 'subjects';
+        fetch(api_path + 'subjects').then(res => res.json()).then(res => {
+            let container = document.getElementById('out_info');
+            container.innerHTML = '';
+            res.forEach(pulpit => {
+                let pulp = document.createElement('div');
+                let deleteButton = document.createElement('button');
+                deleteButton.setAttribute('onclick', 'deleteRecord(event)');
+                deleteButton.setAttribute('ID', pulpit.SUBJECT);
+                deleteButton.innerText = 'Delete';
+                pulp.innerHTML = `<span>${pulpit.SUBJECT} - ${pulpit.SUBJECT_NAME} [${pulpit.PULPIT}]</span>`;
+                pulp.appendChild(deleteButton);
+                container.append(pulp, document.createElement('br'));
+            });
+            container = document.getElementById("insert");
+            container.innerHTML = '';
+            container.innerHTML = `<div>
+            <label>
+                <input name="newData" id="id" type="text" placeholder="Id">
+            </label>
+            <label>
+                <input name="newData" id="name" type="text" placeholder="Name">
+            </label>
+            <label>
+                <input name="newData" id="pulpit" type="text" placeholder="Pulpit Id">
+            </label>
+        </div>
+        <button onclick="submit()">Add</button>
+<button onclick="submitup()">update</button>
+        `;
+        });
+    }
+
+    function get_auditorium() {
+        CurrentTable = 'auditoriums';
+        fetch(api_path + 'auditoriums').then(res => res.json()).then(res => {
+            let container = document.getElementById('out_info');
+            container.innerHTML = '';
+            res.forEach(pulpit => {
+                let pulp = document.createElement('div');
+                let deleteButton = document.createElement('button');
+                deleteButton.setAttribute('onclick', 'deleteRecord(event)');
+                deleteButton.setAttribute('ID', pulpit.AUDITORIUM);
+                deleteButton.innerText = 'Delete';
+                pulp.innerHTML = `<span>${pulpit.AUDITORIUM} - ${pulpit.AUDITORIUM_NAME} - ${pulpit.AUDITORIUM_CAPACITY} - ${pulpit.AUDITORIUM_TYPE}</span>`;
+                pulp.appendChild(deleteButton);
+                container.append(pulp, document.createElement('br'));
+            });
+            container = document.getElementById("insert");
+            container.innerHTML = '';
+            container.innerHTML = `<div>
+            <label>
+                <input name="newData" id="id" type="text" placeholder="Id">
+            </label>
+            <label>
+                <input name="newData" id="name" type="text" placeholder="Name">
+            </label>
+            <label>
+                <input name="newData" id="capacity" type="text" placeholder="Capacity">
+            </label>
+            <label>
+                <input name="newData" id="type" type="text" placeholder="Type Id">
+            </label>
+        </div>
+        <button onclick="submit()">Add</button>
+        <button onclick="submitup()">update</button>
+        `;
+        });
+    }
+
+    function get_auditorium_type() {
+        CurrentTable = 'auditoriumstypes';
+        fetch(api_path + 'auditoriumstypes').then(res => res.json()).then(res => {
+            let container = document.getElementById('out_info');
+            container.innerHTML = '';
+            res.forEach(pulpit => {
+                let pulp = document.createElement('div');
+                let deleteButton = document.createElement('button');
+                deleteButton.setAttribute('onclick', 'deleteRecord(event)');
+                deleteButton.setAttribute('ID', pulpit.AUDITORIUM_TYPE);
+                deleteButton.innerText = 'Delete';
+                pulp.innerHTML = `<span>${pulpit.AUDITORIUM_TYPE} - ${pulpit.AUDITORIUM_TYPENAME}</span>`;
+                pulp.appendChild(deleteButton);
+                container.append(pulp, document.createElement('br'));
+            });
+            container = document.getElementById("insert");
+            container.innerHTML = '';
+            container.innerHTML = `<div>
+            <label>
+                <input name="newData" id="id" type="text" placeholder="Id">
+            </label>
+            <label>
+                <input name="newData" id="name" type="text" placeholder="Name">
+            </label>
+        </div>
+        <button onclick="submit()">Add</button>
+        <button onclick="submitup()">update</button>
+        `;
+        });
+    }
+
+    function submitup() {
+        method_for_request = 'PUT';
+        let Data = Array.from(document.getElementsByName('newData')).map(a => {
+            return {field: a.getAttribute('id'), value: a.value};
+        });
+        let ID = Data.find(a => a.field === 'id').value;
+        upsert(Data, ID);
+
+        switch (CurrentTable) {
+            case 'pulpits':
+                setTimeout(()=>get_pulpit(),1000);
+                break;
+            case 'faculties':
+                setTimeout(()=>get_faculty(),1000);
+                break;
+            case 'subjects':
+                setTimeout(()=>get_subject(),1000);
+                break;
+            case 'auditoriums':
+                setTimeout(()=>get_auditorium(),1000);
+                break;
+            case 'auditoriumstypes':
+                setTimeout(()=>get_auditorium_type(),1000);
+                break;
+        }
+    }
+
+    function submit() {
+        method_for_request = 'POST';
+        let Data = Array.from(document.getElementsByName('newData')).map(a => {
+            return {field: a.getAttribute('id'), value: a.value};
+        });
+        let ID = Data.find(a => a.field === 'id').value;
+        upsert(Data, ID);
+
+        switch (CurrentTable) {
+            case 'pulpits':
+                setTimeout(()=>get_pulpit(),1000);
+                break;
+            case 'faculties':
+                setTimeout(()=>get_faculty(),1000);
+                break;
+            case 'subjects':
+                setTimeout(()=>get_subject(),1000);
+                break;
+            case 'auditoriums':
+                setTimeout(()=>get_auditorium(),1000);
+                break;
+            case 'auditoriumstypes':
+                setTimeout(()=>get_auditorium_type(),1000);
+                break;
+        }
+    }
+
+    function upsert(Data) {
+        let row = '';
+        switch (CurrentTable) {
+            case 'pulpits':
+                row = {
+                    PULPIT: Data.find(a => a.field === 'id').value,
+                    PULPIT_NAME: Data.find(a => a.field === 'name').value,
+                    FACULTY: Data.find(a => a.field === 'faculty').value
+                };
+                break;
+            case 'faculties':
+                row = {
+                    FACULTY: Data.find(a => a.field === 'id').value,
+                    FACULTY_NAME: Data.find(a => a.field === 'name').value
+                };
+                break;
+            case 'subjects':
+                row = {
+                    SUBJECT: Data.find(a => a.field === 'id').value,
+                    SUBJECT_NAME: Data.find(a => a.field === 'name').value,
+                    PULPIT: Data.find(a => a.field === 'pulpit').value
+                };
+                break;
+            case 'auditoriums':
+                row = {
+                    AUDITORIUM: Data.find(a => a.field === 'id').value,
+                    AUDITORIUM_NAME: Data.find(a => a.field === 'name').value,
+                    AUDITORIUM_CAPACITY: Data.find(a => a.field === 'capacity').value,
+                    AUDITORIUM_TYPE: Data.find(a => a.field === 'type').value
+                };
+                break;
+            case 'auditoriumstypes':
+                row = {
+                    AUDITORIUM_TYPE: Data.find(a => a.field === 'id').value,
+                    AUDITORIUM_TYPENAME: Data.find(a => a.field === 'name').value
+                };
+                break;
+        }
+        fetch(api_path + CurrentTable,
+            {
+                method: method_for_request,
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(row)
+            });
+    }
+
+    function deleteRecord(event) {
+        if (confirm('Are you sure you want to remove this record?')) {
+            fetch(api_path + CurrentTable + '/' + event.target.getAttribute('id'), {method: 'DELETE'})
+        }
+        switch (CurrentTable) {
+            case 'pulpits':
+                get_pulpit();
+                break;
+            case 'faculties':
+                get_faculty();
+                break;
+            case 'subjects':
+                get_subject();
+                break;
+            case 'auditoriums':
+                get_auditorium()
+                break;
+            case 'auditoriumstypes':
+                get_auditorium_type();
+                break;
+        }
+    }
+</script>
+</body>
+</html>
