@@ -27,6 +27,7 @@
     "ws": "^7.3.1"
   },
   "devDependencies": {
+    "express-handlebars": "^5.2.1",
     "express-xml-bodyparser": "^0.3.0",
     "graphql": "^15.4.0",
     "nodemailer": "^6.4.11",
