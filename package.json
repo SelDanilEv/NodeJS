@@ -2,9 +2,9 @@
   "name": "Labs",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "lab20/20-01.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node lab20/20-01.js"
   },
   "keywords": [],
   "author": "",

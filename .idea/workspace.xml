@@ -7,9 +7,7 @@
   <component name="ChangeListManager">
     <list default="true" id="236e67d1-7b81-406a-ab5f-69768f166276" name="Default Changelist" comment="add 16 labadd 16 lab">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lab20/model/DB.js" beforeDir="false" afterPath="$PROJECT_DIR$/lab20/model/DB.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lab20/model/data/phoneNumbers.json" beforeDir="false" afterPath="$PROJECT_DIR$/lab20/model/data/phoneNumbers.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lab20/views/static/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/lab20/views/static/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,7 +42,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="javascript.nodejs.core.library.configured.version" value="12.18.3" />
     <property name="javascript.nodejs.core.library.typings.version" value="12.12.55" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../deploy" />
     <property name="nodejs_interpreter_path" value="node" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="restartRequiresConfirmation" value="false" />
@@ -167,7 +165,8 @@
       <workItem from="1615137782426" duration="18000" />
       <workItem from="1615275745577" duration="11475000" />
       <workItem from="1615724002705" duration="6177000" />
-      <workItem from="1615797403998" duration="384000" />
+      <workItem from="1615797403998" duration="1164000" />
+      <workItem from="1615798889861" duration="396000" />
     </task>
     <task id="LOCAL-00001" summary="add 16 lab">
       <created>1608185166953</created>
@@ -216,11 +215,11 @@
     </state>
     <state width="2400" height="960" key="DebuggerActiveHint/0.0.1280.680/-2560.-442.2560.1400@-2560.-442.2560.1400" timestamp="1607262900413" />
     <state width="906" height="466" key="DebuggerActiveHint/0.0.1280.680@0.0.1280.680" timestamp="1615360011125" />
-    <state x="421" y="95" key="FileChooserDialogImpl" timestamp="1615137794903">
+    <state x="421" y="95" key="FileChooserDialogImpl" timestamp="1615799021526">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
     <state x="421" y="95" key="FileChooserDialogImpl/0.0.1280.680/-2560.-442.2560.1400@0.0.1280.680" timestamp="1609253002564" />
-    <state x="421" y="95" key="FileChooserDialogImpl/0.0.1280.680@0.0.1280.680" timestamp="1615137794903" />
+    <state x="421" y="95" key="FileChooserDialogImpl/0.0.1280.680@0.0.1280.680" timestamp="1615799021526" />
     <state width="1259" height="243" key="GridCell.Tab.0.bottom" timestamp="1615730267248">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
