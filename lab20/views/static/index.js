@@ -1,3 +1,4 @@
+let oldfio = "";
 
 function disableDel(){
     let del = document.getElementById('delete');
@@ -45,11 +46,10 @@ function Choose(item){
         del.disabled = false;
 
         // document.getElementsByClassName('ph-field').disabled = true;
-
         let Pnumber = document.getElementById('Pnumber');
         let FIO = document.getElementById('FIO');
 
-        FIO.value = item.querySelector('#list-fio').innerHTML;
+        oldfio = FIO.value = item.querySelector('#list-fio').innerHTML;
         Pnumber.value = item.querySelector('#list-number').innerHTML;
     }
     else {
@@ -68,6 +68,7 @@ function Update(){
         body: JSON.stringify({
             fio: FIO,
             number: Pnumber,
+            oldfio: oldfio,
         })
     })
         .catch((err) => console.log(`ERROR ${err}`))

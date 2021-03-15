@@ -24,16 +24,16 @@ module.exports = {
         }
     },
     Update(field) {
-        const {fio, number } = field;
+        const {fio, number, oldfio } = field;
 
         if (fio && number) {
-            let isNumber = phoneNumbers.find(phone => phone.fio == fio);
-            if (!isNumber) {
+            let isExist = phoneNumbers.find(phone => phone.fio == oldfio);
+            if (!isExist) {
                 throw new Error('Phone number is not exists');
             }
 
-            isNumber.fio = fio;
-            isNumber.number = number;
+            isExist.fio = fio;
+            isExist.number = number;
 
             commit();
         }
