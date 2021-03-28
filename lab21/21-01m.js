@@ -1,13 +1,18 @@
 const Users = require('./Users.json');
 
-const getCredential = (user)=>{
-    let u = Users.find((e)=>{return e.user.toUpperCase() == user.toUpperCase(); });
-    return u;
+const getCredential = (user) => {
+    return Users.find((e) => {
+        console.log('Is user ver login ' + (e.user.toUpperCase() == user.toUpperCase()));
+        return e.user.toUpperCase() == user.toUpperCase();
+    });
 };
 
-const verPassword = (pass1, pass2)=>{return pass1 == pass2;};
+const verPassword = (pass1, pass2) => {
+    console.log('Is user ver password ' + (pass1 == pass2));
+    return pass1 == pass2;
+};
 
 module.exports = {
-    getCredential:getCredential,
-    verPassword:verPassword
+    getCredential: getCredential,
+    verPassword: verPassword
 };
