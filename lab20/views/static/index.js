@@ -21,8 +21,9 @@ function Add(){
             number: Pnumber
         })
     })
-        .catch((err) => console.log(`ERROR ${err}`))
-    window.location.href = '/';
+        .catch((err) => console.log(`ERROR ${err}`));
+
+    setInterval(()=>{window.location.href = '/';},1000);
 }
 
 function Delete(){
@@ -37,7 +38,7 @@ function Delete(){
         })
     })
         .catch((err) => console.log(`ERROR ${err}`))
-    location.href = '/Update';
+    setInterval(()=>{window.location.href = '/Update';},1000);
 }
 
 function Choose(item){
@@ -53,7 +54,7 @@ function Choose(item){
         Pnumber.value = item.querySelector('#list-number').innerHTML;
     }
     else {
-        location.href = '/Update';
+        setInterval(()=>{window.location.href = '/Update';},1000);
     }
 }
 
@@ -72,6 +73,5 @@ function Update(){
         })
     })
         .catch((err) => console.log(`ERROR ${err}`))
-
-    window.location.href = '/Update';
+    setInterval(()=>{window.location.href = '/Update';},1000);
 }

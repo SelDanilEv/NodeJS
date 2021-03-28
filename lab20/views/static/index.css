@@ -1,19 +1,21 @@
 body{
     margin: 0;
+    background: #7dbf89;
+    color: azure;
 }
 
 .ph-block{
-    border: 1px solid #cecece;
+    border: 1px solid #66415f;
     text-align: center;
-    margin: 2% 10% 2% 10%;
+    margin: 2% 5%;
     min-height: 500px;
     max-height: 100%;
 }
 
 .ph-list{
-    border: 1px solid #cecece;
+    border: 1px solid #817c7c;
     text-align: center;
-    margin: 5% 5% 5% 5%;
+    margin: 5% 15%;
     overflow-y: auto;
     overflow-x: hidden;
     height: 100%;
@@ -22,18 +24,18 @@ body{
 }
 
 .ph-item{
-    background: #dfdfdf;
-    border: 1px solid black;
+    background: #796464;
+    border: 1px solid #2b2222;
     text-align: justify;
-    margin: 1% 1% 1% 1%;
-    padding: 1% 1% 1% 1%;
+    margin: 1%;
+    padding: 1%;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
 }
 
 .ph-item:hover{
-    background: white;
+    background: #61911a;
 }
 
 span{
@@ -45,21 +47,21 @@ span{
 .ph-buttons{
     display: flex;
     flex-direction: row;
-    margin: 5% 5% 5% 5%;
+    margin: 5%;
 }
 
 .ph-button{
-    margin: 1% 2% 1% 2%;
+    margin: 0 auto;
     min-height: 50px;
     height: 6%;
-    width: 100%;
+    width: 50%;
     text-align:center;
     font-size: 1.4em;
     display: flex;
     align-items: center;
     justify-content: center;
     background: none;
-    border: 1px solid black;
+    border: 1px solid #4f3f3f;
 }
 
 .ph-button:hover{
@@ -67,20 +69,21 @@ span{
 }
 
 .ph-field{
-    border: 1px solid #cecece;
+    border: 1px solid #989595;
     min-height: 50px;
     height: 6%;
-    margin: 5% 5% 5% 5%;
-    background: #dfdfdf;
+    margin: 5%;
+    background: #3c3939;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
 }
 
 input[type="text"]{
-    background: #dfdfdf;
+    background: #5d5050;
     border: none;
     width: 50%;
     margin-left: 2%;
     font-size: 1.2em;
+    font-family: "Arial Black";
 }
