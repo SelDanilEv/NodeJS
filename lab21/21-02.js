@@ -51,7 +51,7 @@ app.get('/login', (req, res, next) => {
             console.log('resource');
             res.send('resource');
         } else {
-            res.redirect('/login')
+            res.redirect('/logout')
         }
     }
 ).get('/logout', (req, res)=>{

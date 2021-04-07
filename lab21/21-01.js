@@ -2,6 +2,7 @@ const app = require('express')();
 const passport = require('passport');
 const BasicStrategy = require('passport-http').BasicStrategy;
 const {getCredential, verPassword} = require('./21-01m');
+
 const session = require('express-session')(
     {
         resave: false,
@@ -13,10 +14,10 @@ const session = require('express-session')(
 passport.use(new BasicStrategy((user, password, done) => {
     console.log('passport.use', user, password);
     let cr = getCredential(user);
-    // if (!cr) done('incorrect username', false);
-    // else if (!verPassword(cr.password, password)) done('incorrect password', false);
-    if (!cr) done(null, false, {message: 'incorrect username'});
-    else if (!verPassword(cr.password, password)) done(null, false, {message: 'incorrect password'});
+    if (!cr) done('incorrect username', false);
+    else if (!verPassword(cr.password, password)) done('incorrect password', false);
+    // if (!cr) done(null, false, {message: 'incorrect username'});
+    // else if (!verPassword(cr.password, password)) done(null, false, {message: 'incorrect password'});
     else done(null, user);
 }));
 
@@ -41,7 +42,6 @@ app.get('/login', (req, res, next) => {
             delete req.headers['authorization'];
         }
         next();
-
     },
     passport.authenticate('basic'), (req, res, next) => {
         next();
@@ -50,16 +50,17 @@ app.get('/login', (req, res, next) => {
     console.log('redirect to resource');
     res.redirect('/resource');
 }).get('/resource', (req, res, next) => {
-        if (req.session.logout == false && req.headers['authorization']) {
+        if (req.session.logout == false && req.user) {
             console.log('resource');
             res.send('resource');
         } else {
-            res.redirect('/login')
+            res.redirect('/logout')
         }
     }
 ).get('/logout', function (req, res) {
     console.log('logout');
     req.session.logout = true;
+    req.logout();
     delete req.headers['authorization'];
     res.redirect('/login');
 });
