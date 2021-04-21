@@ -1,4 +1,4 @@
-const Users = require('./Users.json');
+const Users = require('../files/Users.json');
 
 const getCredential = (user) => {
     return Users.find((e) => {
