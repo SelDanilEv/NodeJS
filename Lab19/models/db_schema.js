@@ -87,8 +87,6 @@ function internalORM(sequelize) {
     PULPIT.belongsTo(FACULTY,{as: 'faculty_pulpits', foreignKey: 'FACULTY', targetKey: 'FACULTY'});
 };
 
-
-
 exports.ORM = (s) => {
     internalORM(s);
     return {FACULTY, PULPIT, TEACHER, SUBJECT, AUDITORIUM_TYPE, AUDITORIUM};

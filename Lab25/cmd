@@ -1,0 +1,22 @@
+cd C:\Program Files\Git\usr\bin
+openssl help
+openssl genrsa -des3 -out D:\Danil\university\PSKP\Лабораторные_работы\Labs\Lab25\CA.key 2048
+123qweASD
+123qweASD
+openssl req -x509 -new -key D:\Danil\university\PSKP\Лабораторные_работы\Labs\Lab25\CA.key -days 700 -sha256 -out D:\Danil\university\PSKP\Лабораторные_работы\Labs\Lab25\CA.crt
+123qweASD
+BY
+Minsk
+Minsk
+BELSTU_IT
+POIT
+RS-LAB25-SDE
+spam@spam.com
+openssl genrsa -out D:\Danil\university\PSKP\Лабораторные_работы\Labs\Lab25\LAB.key 2048
+echo create file LAB.cfg
+openssl req -new -key D:\Danil\university\PSKP\Лабораторные_работы\Labs\Lab25\LAB.key -out D:\Danil\university\PSKP\Лабораторные_работы\Labs\Lab25\LAB.csr -sha256 -config D:\Danil\university\PSKP\Лабораторные_работы\Labs\Lab25\LAB.cfg
+openssl x509 -req -in D:\Danil\university\PSKP\Лабораторные_работы\Labs\Lab25\LAB.csr -CA D:\Danil\university\PSKP\Лабораторные_работы\Labs\Lab25\CA.crt -CAkey D:\Danil\university\PSKP\Лабораторные_работы\Labs\Lab25\CA.key -CAcreateserial -out D:\Danil\university\PSKP\Лабораторные_работы\Labs\Lab25\LAB.crt -days 365 -sha256 -extensions v3_req -extfile D:\Danil\university\PSKP\Лабораторные_работы\Labs\Lab25\LAB.cfg
+123qweASD
+mmc
+echo add to trusted
+c:\windows\system32\drivers\etc\hosts

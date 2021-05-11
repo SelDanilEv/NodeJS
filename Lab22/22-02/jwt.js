@@ -54,7 +54,7 @@ module.exports = {
                     if (decoded["type"] != tokens.refresh.type)
                         return res
                             .status(401)
-                            .send(JSON.stringify({ERROR: "token is not valid1"}));
+                            .send(JSON.stringify({ERROR: "token is not valid"}));
                     let result = await UserService.getCredential({
                         user: decoded["username"],
                     });
@@ -68,7 +68,7 @@ module.exports = {
                         if (!resultCHeck) {
                             return res
                                 .status(401)
-                                .send(JSON.stringify({ERROR: "token is not valid2"}));
+                                .send(JSON.stringify({ERROR: "token is not valid"}));
                         }
                         blackList.AddBlackList(
                             decoded["username"],
@@ -78,7 +78,7 @@ module.exports = {
                     } else {
                         return res
                             .status(401)
-                            .send(JSON.stringify({ERROR: "token is not valid3"}));
+                            .send(JSON.stringify({ERROR: "token is not valid"}));
                     }
                 }
             )
@@ -86,7 +86,7 @@ module.exports = {
                 console.log(e);
                 return res
                     .status(401)
-                    .send(JSON.stringify({ERROR: "token is not valid4"}));
+                    .send(JSON.stringify({ERROR: "token is not valid"}));
             });
     },
 };

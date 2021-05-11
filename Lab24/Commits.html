@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+</head>
+<body>
+<script>
+    async function sendPost(e) {
+
+        let repos = {
+            message: document.getElementById('message').value
+        };
+
+        let response = await fetch('/api/repos/' + document.getElementById('repoId').value + '/commits', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json;charset=utf-8'
+                },
+                body: JSON.stringify(repos)
+            }
+        );
+
+        let result = await response.text();
+
+        console.log(result);
+        sendGet2(document.getElementById('repoId').value);
+    }
+
+    async function sendDelete(e) {
+        let response = await fetch('/api/repos/' + document.getElementById('ID_repos').value +
+            '/commits/' + document.getElementById('ID_commit').value, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json;charset=utf-8'
+                },
+            }
+        );
+
+        let result = await response.text();
+
+        console.log(result);
+    }
+
+    async function send(e) {
+
+        let commits = {
+            message: document.getElementById('messagePut').value
+        };
+        let response = await fetch('/api/repos/' + document.getElementById('idRepos').value + '/commits/'
+            + document.getElementById('idCommit').value, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8'
+            }, body: JSON.stringify(commits)
+
+        });
+
+        let result = await response.text();
+
+        console.log(result);
+        sendGet2(document.getElementById('idRepos').value);
+    }
+
+    async function sendGet2(e) {
+        let response = await fetch('/api/repos/' + (e || document.getElementById('Get_ID_repos').value) + '/commits', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8'
+            },
+        });
+
+        let result = await response.text();
+
+        document.getElementById('result').innerHTML = result
+    }
+
+    async function sendGet1(e) {
+        let response = await fetch('/api/repos/' + document.getElementById('GEt_ID_repos').value +
+            '/commits/' + document.getElementById('GEt_ID_commit').value, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8'
+            }
+        });
+        let result = await response.text();
+        document.getElementById('result').innerHTML = result
+    }
+</script>
+<p>Post</p>
+<input type="number" id="repoId" placeholder="Enter repoId" required/>
+<input type="text" id="message" placeholder="Enter message" required/>
+<button onclick="sendPost()"> Post</button>
+<p>Put</p>
+<input type="number" id="idCommit" placeholder="Enter idCommit" required/>
+<input type="number" id="idRepos" placeholder="Enter idRepos" required/>
+<input type="text" id="messagePut" placeholder="Enter messagePut" required/>
+<button onclick="send()"> Put</button>
+<p>Delete</p>
+<input type="text" id="ID_repos" placeholder="Enter ID_repos" required/>
+<input type="text" id="ID_commit" placeholder="Enter ID_commit" required/>
+<button onclick="sendDelete()"> Delete</button>
+<p>Get by repos id</p>
+<input type="text" id="Get_ID_repos" placeholder="Enter ID_repos" required/>
+<button onclick="sendGet2()"> Get by repo</button>
+<p>Get by repos and commit id</p>
+<input type="text" id="GEt_ID_repos" placeholder="Enter ID_repos" required/>
+<input type="text" id="GEt_ID_commit" placeholder="Enter ID_commit" required/>
+<button onclick="sendGet1()"> Get by repo and commit</button>
+<div id="result"></div>
+</body>
+</html>

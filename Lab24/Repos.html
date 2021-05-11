@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+
+</head>
+<body>
+<form action="/api/repos" method="POST">
+    <input type="text" name="name" placeholder="Enter name" required/>
+    <input type="number" name="authorId" placeholder="Enter authorId" required/>
+    <button type="submit"> Post</button>
+    <button type="reset" class="cancelbtn">cancel</button>
+</form>
+<script>
+    GetAll();
+
+    async function GetById() {
+        let response = await fetch('/api/repos/' + document.getElementById('ID_repos').value, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8'
+            },
+        });
+
+        let result = await response.text();
+        document.getElementById('result').innerHTML = result
+    }
+
+
+    async function GetAll() {
+        let response = await fetch('/api/repos', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8'
+            },
+        });
+
+        let result = await response.text();
+        document.getElementById('result').innerHTML = result
+    }
+
+    async function send(e) {
+
+        let repos = {
+            name: document.getElementById('name').value,
+            authorId: document.getElementById('authorId').value
+        };
+
+        let response = await fetch('/api/repos/' + document.getElementById('id').value, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8'
+            },
+            body: JSON.stringify(repos)
+        });
+
+        let result = await response.text();
+        console.log(result);
+        GetAll();
+    }
+
+    async function sendDelete(e) {
+        let response = await fetch('/api/repos/' + document.getElementById('ID').value, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8'
+            },
+
+        });
+
+        let result = await response.text();
+
+        console.log(result);
+        GetAll();
+    }
+</script>
+<p>Put</p>
+<input type="number" id="id" placeholder="Enter id" required/>
+<input type="text" id="name" placeholder="Enter name" required/>
+<input type="text" id="authorId" placeholder="Enter authorId" required/>
+<button onclick="send()"> Put</button>
+<p>Delete</p>
+<input type="text" id="ID" placeholder="Enter ID" required/>
+<button onclick="sendDelete()"> Delete</button>
+<p>Get by ID</p>
+<input type="text" id="ID_repos" placeholder="Enter ID" required/>
+<button onclick=" GetById()">Get</button>
+<div id="result"></div>
+</body>
+</html>

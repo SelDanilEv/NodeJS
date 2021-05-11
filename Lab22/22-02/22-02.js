@@ -5,7 +5,10 @@ const bodyParser = require("body-parser");
 const urlencodedParser = bodyParser.urlencoded({ extended: false });
 const jwt = require("./jwt");
 const config = require("./config");
+const blacklist = require("./black-list")
 const cookieParser = require("cookie-parser");
+const {secret, tokens} = require("./config").jwt;
+
 app.use(cookieParser());
 app.get("/login", (req, res) => {
   res.sendFile(__dirname + "/login.html");
@@ -59,7 +62,8 @@ app.post("/Register", urlencodedParser, (req, res) => {
     return res.sendStatus(404);
   }
 });
-app.get("/logout", (req, res) => {
+app.get("/logout", jwt.CheckJwt ,(req, res) => {
+  blacklist.AddBlackList(req.body["user"],req.cookies[tokens.refresh.type]);
 
   res.clearCookie(config.jwt.tokens.refresh.type);
   res.clearCookie(config.jwt.tokens.access.type);
