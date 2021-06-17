@@ -12,6 +12,7 @@ const sequelize = new Sequelize("lab_24", "sa", "123qweASD", {
         idle: 10000,
     }
 });
+
 const users = require("./users")(Sequelize, sequelize);
 const repos = require("./repos")(Sequelize, sequelize);
 const commits = require("./commits")(Sequelize, sequelize);

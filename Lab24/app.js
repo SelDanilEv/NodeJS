@@ -137,8 +137,8 @@ app.get("/api/user/:ID", (req, res) => {
         );
 });
 
-app.get("/api/repos", (req, res) => {
-    ReposRepository.GetAll()
+app.get("/api/repos", async (req, res) => {
+    let result = await ReposRepository.GetAll()
         .then((users) => {
             return res.json(users);
         })
@@ -146,8 +146,8 @@ app.get("/api/repos", (req, res) => {
             res.status(404).send(JSON.stringify({ERROR: err.message}))
         );
 });
-app.get("/api/repos/:ID", (req, res) => {
-    ReposRepository.FindByID(req.params["ID"])
+app.get("/api/repos/:ID", async(req, res) => {
+    let resultFind = await ReposRepository.FindByID(req.params["ID"])
         .then((users) => {
             return res.json(users);
         })
@@ -180,8 +180,8 @@ app.put("/api/repos/:ID", jsonParser, async (req, res) => {
                 .status(403)
                 .send(JSON.stringify({ERROR: "403 Forbidden Error"}));
         }
-        let repos = new Repos({authorId: Number(resultFind["authorId"])});
-        req.ability.throwUnlessCan("update", repos);
+
+        req.ability.throwUnlessCan("update", resultFind);
         let resultPut = await ReposRepository.PutRepos(req.params["ID"], req.body);
         if (resultPut == 0) {
             return res

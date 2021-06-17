@@ -1,15 +1,15 @@
 module.exports = (Sequelize, sequelize) => {
     return sequelize.define(
-        "repos",
+        "Repos",
         {
             id: {
                 type: Sequelize.INTEGER,
                 allowNULL: false,
                 primaryKey: true,
-                autoIncrement: true,
+                autoIncrement: true
             },
             name: {type: Sequelize.STRING, allowNULL: false},
         },
-        {sequelize, modelName: "repos", tableName: "repos"}
+        {sequelize, modelName: "Repos", tableName: "repos"}
     );
 };

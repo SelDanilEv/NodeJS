@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Page Title</title>
+    <script>
+        function Process(button){
+            let v1,v2;
+            v1 = document.getElementById("value_1").value;
+            v2 = document.getElementById("value_2").value;
+            fetch(`/${button.name}/${v1}/${v2}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json;charset=utf-8'
+                },
+            }).then(res => res.json()).then(result => {
+                console.log(result);
+                document.getElementById("result").innerText = result.message || result.error;
+            });
+        }
+    </script>
+    <style>
+        input[type="button"] {
+            margin-top: 5px;
+        }
+    </style>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+</head>
+<body>
+<div style="width: fit-content; margin: 5% auto; display: flex;flex-direction: column">
+    <div style="display: flex;margin: 5px auto;flex-direction: row">
+        <input type="text" id="value_1" placeholder="value 1" />
+        <input type="text" id="value_2" placeholder="value 2" />
+    </div>
+    <div style="flex-wrap: wrap; width: 50%;margin: 5px auto">
+        <input type="button" name="md" value="Make directory" onclick="Process(this)"/>
+        <input type="button" name="rd" value="Remove directory" onclick="Process(this)" />
+        <input type="button" name="up" value="Write file" onclick="Process(this)"/>
+        <input type="button" name="down" value="Take file" onclick="Process(this)"/>
+        <input type="button" name="del" value="Delete file" onclick="Process(this)"/>
+        <input type="button" name="copy" value="Copy file" onclick="Process(this)"/>
+        <input type="button" name="move" value="Move file" onclick="Process(this)"/>
+    </div>
+    <div style="max-width: inherit;margin: 5px auto;" id="result">
+
+    </div>
+</div>
+</body>
+</html>

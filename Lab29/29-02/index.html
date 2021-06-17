@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title><!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <title>Title</title>
+        </head>
+        <script>
+            function Process(button) {
+                let num1, num2;
+                num1 = document.getElementById("value_1").value;
+                num2 = document.getElementById("value_2").value;
+                WebAssembly.instantiateStreaming(fetch('/wasm'))
+                    .then(webAsmObject => {
+                        console.log(webAsmObject)
+                        sum.innerText = webAsmObject.instance.exports.sum(num1, num2);
+                        sub.innerText = webAsmObject.instance.exports.sub(num1, num2);
+                        mul.innerText = webAsmObject.instance.exports.mul(num1, num2);
+                    });
+            }
+
+            function Process3(button) {
+                let num1, num2;
+                num1 = document.getElementById("value_1").value;
+                num2 = document.getElementById("value_2").value;
+                fetch('/wasm3')
+                    .then(res => res.json()).then(array => {
+                    let wasmCode = new Uint8Array(array);
+
+                    let wasmImports = {};
+                    let wasmModule = new WebAssembly.Module(wasmCode);
+                    let wasmInstance = new WebAssembly.Instance(wasmModule, wasmImports);
+
+                    document.getElementById('sum').innerHTML = wasmInstance.exports.sum(num1, num2);
+                    document.getElementById('sub').innerHTML = wasmInstance.exports.sub(num1, num2);
+                    document.getElementById('mul').innerHTML = wasmInstance.exports.mul(num1, num2);
+                });
+            }
+        </script>
+<body>
+
+<div style="display: flex;margin: 5px auto;flex-direction: row">
+    <input type="text" id="value_1" placeholder="value 1"/>
+    <input type="text" id="value_2" placeholder="value 2"/>
+</div>
+
+<div>
+    <div>value 1 + value 2 = <span id="sum"></span></div>
+    <div>value 1 - value 2 = <span id="sub"></span></div>
+    <div>value 1 * value 2 = <span id="mul"></span></div>
+</div>
+
+<input type="button" value="Calc" onclick="Process()">
+<input type="button" value="Calc3" onclick="Process3()">
+</body>
+</html>

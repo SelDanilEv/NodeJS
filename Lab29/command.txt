@@ -1,0 +1,1 @@
+emcc -O1 Source.c -o Source0.html -s WASM=1
